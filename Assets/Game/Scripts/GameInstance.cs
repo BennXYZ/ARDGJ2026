@@ -1,5 +1,7 @@
 ﻿using ArdJam2026.Gameplay;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace ArdJam2026
@@ -28,6 +30,7 @@ namespace ArdJam2026
 
         private void StartGame()
         {
+            InputSystem.actions.Enable();
             // TODO: Initialize Game
         }
 

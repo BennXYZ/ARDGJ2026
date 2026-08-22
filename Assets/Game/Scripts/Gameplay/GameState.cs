@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -6,11 +7,21 @@ namespace ArdJam2026.Gameplay
 {
     public class GameState
     {
+        public enum State
+        {
+            Paused,
+            Running,
+            GameOver,
+            GameWon
+        }
+
         private readonly GameInstance gameInstance;
         private readonly PlayerController component;
 
         public Room CurrentRoom { get; private set; }
         public Camera CurrentCamera { get; private set; }
+
+        public State CurrentState { get; private set; } = State.Paused;
 
         public GameState(GameInstance gameInstance)
         {
@@ -28,11 +39,13 @@ namespace ArdJam2026.Gameplay
             Debug.Assert(CurrentCamera, "Cannot find camera.");
             CurrentRoom = GameObject.FindAnyObjectByType<Room>();
             CurrentRoom.Initialize(this);
+
+            CurrentState = State.Running;
         }
 
         public void DoInteractAction()
         {
-            if (CurrentRoom)
+            if (CurrentRoom && CurrentState == State.Running)
             {
                 CurrentRoom.PerformInteract();
             }
@@ -40,7 +53,7 @@ namespace ArdJam2026.Gameplay
 
         public void DoPossessAction()
         {
-            if (CurrentRoom && CurrentCamera)
+            if (CurrentRoom && CurrentCamera && CurrentState == State.Running)
             {
                 Vector3 worldPoint = CurrentCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 CurrentRoom.Possess(worldPoint);
@@ -49,10 +62,15 @@ namespace ArdJam2026.Gameplay
 
         public void DoMoveAction(Vector2Int direction)
         {
-            if (CurrentRoom)
+            if (CurrentRoom && CurrentState == State.Running)
             {
                 CurrentRoom.PerformMove(direction);
             }
+        }
+
+        public void GameOver()
+        {
+            CurrentState = State.GameOver;
         }
     }
 }

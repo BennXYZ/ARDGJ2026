@@ -13,6 +13,8 @@ namespace ArdJam2026.Gameplay
         private InputAction interactAction;
         private InputAction possessAction;
 
+        private bool movePressed = false;
+
         public void Initialize(GameState gameState)
         {
             this.gameState = gameState;
@@ -28,9 +30,18 @@ namespace ArdJam2026.Gameplay
             Vector2 input = moveAction.ReadValue<Vector2>();
             if (input.magnitude > DEADZONE)
             {
+                if (movePressed)
+                    return;
+
+                movePressed = true;
+
                 // Dunno if this is stupid
                 Vector2Int direction = Vector2Int.RoundToInt((input * 10).normalized);
                 gameState.DoMoveAction(direction);
+            }
+            else
+            {
+                movePressed = false;
             }
         }
 
