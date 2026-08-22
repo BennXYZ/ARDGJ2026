@@ -13,7 +13,8 @@ namespace ArdJam2026.Gameplay
         [SerializeField]
         private Tilemap level;
         private GameState gameState;
-        private bool pawnsAreMoving;
+        private bool turnStarted;
+        private bool pawnDied;
 
         public Tilemap Level => level;
 
@@ -61,6 +62,11 @@ namespace ArdJam2026.Gameplay
 
         public void Possess(Vector3 position)
         {
+            if (turnStarted)
+                return;
+
+            turnStarted = true;
+
             Vector3Int cell = level.WorldToCell(position);
             Debug.Log(cell);
             foreach (Pawn pawn in pawns)
@@ -71,12 +77,14 @@ namespace ArdJam2026.Gameplay
                     break;
                 }
             }
-            OnTurn();
         }
 
         public void PerformMove(Vector2Int direction)
         {
-            pawnsAreMoving = true;
+            if (turnStarted)
+                return;
+
+            turnStarted = true;
             foreach (Pawn pawn in pawns)
             {
                 pawn.PrepareMovement();
@@ -95,6 +103,8 @@ namespace ArdJam2026.Gameplay
                     }
 
                     movablePawns[i].Move(direction);
+
+                    CheckForDeath(movablePawns[i]);
                 }
 
                 // Prevents endless loop
@@ -102,21 +112,37 @@ namespace ArdJam2026.Gameplay
             }
         }
 
+        private void CheckForDeath(Pawn pawn)
+        {
+            GameplayTile tile = GetTile(pawn.Location);
+            if (tile && tile.Deadly)
+            {
+                Debug.LogError("You're dead. Not big surprise", pawn);
+                pawnDied = true;
+            }
+
+        }
+
         private void Update()
         {
-            if (pawnsAreMoving)
+            if (turnStarted)
             {
-                pawnsAreMoving = pawns.Any(p => p.IsMoving);
-                if (!pawnsAreMoving)
+                turnStarted = pawns.Any(p => p.IsMoving);
+                if (!turnStarted)
                 {
                     PostMoveChecks();
-                    OnTurn();
+                    OnTurnComplete();
                 }
             }
         }
 
         public void PerformInteract()
         {
+            if (turnStarted)
+                return;
+
+            turnStarted = true;
+
             foreach (Pawn pawn in pawns)
             {
                 if (pawn.IsPossessed)
@@ -133,12 +159,13 @@ namespace ArdJam2026.Gameplay
                     }
                 }
             }
-
-            OnTurn();
         }
 
-        private void OnTurn()
+        private void OnTurnComplete()
         {
+            if (pawnDied)
+                gameState.GameOver();
+
             foreach (ITurnHandler turnHandler in turnHandlers)
             {
                 turnHandler.OnTurn();
@@ -178,16 +205,6 @@ namespace ArdJam2026.Gameplay
 
         private void PostMoveChecks()
         {
-            foreach (Pawn pawn in pawns)
-            {
-                GameplayTile tile = GetTile(pawn.Location);
-                if (tile && tile.Deadly)
-                {
-                    Debug.LogError("You're dead. Not big surprise", pawn);
-                    gameState.GameOver();
-                }
-            }
-
             HashSet<Vector2Int> colliderLocations = new(colliders.Select(c => c.Location));
             foreach (IFloorButton floorButton in floorButtons)
             {
