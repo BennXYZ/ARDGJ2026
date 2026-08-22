@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DG.Tweening;
 using SaintsField;
 using SaintsField.Playa;
@@ -19,7 +18,7 @@ namespace ArdJam2026.Gameplay
 
         public int Speed => speed;
 
-        public bool IsStatic => MoveCount == 0;
+        public bool IsStatic => MoveCount < 1;
 
         public bool IsColliding => true;
 
@@ -69,8 +68,20 @@ namespace ArdJam2026.Gameplay
                 {
                     MoveCount = 0;
                     PlayBlockedMoveAnimation(animationName, startPosition, endPosition);
+                    return;
                 }
-                return;
+
+                if (collider is not IPushable pushable)
+                    return;
+
+                if (!pushable.CanPush(direction))
+                {
+                    MoveCount = 0;
+                    PlayBlockedMoveAnimation(animationName, startPosition, endPosition);
+                    return;
+                }
+
+                pushable.Push(direction);
             }
 
             MoveCount--;
@@ -83,6 +94,7 @@ namespace ArdJam2026.Gameplay
 
         private void PlayBlockedMoveAnimation(string animationName, Vector3 from, Vector3 to)
         {
+            transform.DOKill();
             transform.position = from;
             to = from + (to - from).normalized * (to - from).magnitude * 0.4f;
             animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
@@ -94,6 +106,7 @@ namespace ArdJam2026.Gameplay
 
         private void PlayMoveAnimation(string animationName, Vector3 from, Vector3 to)
         {
+            transform.DOKill();
             transform.position = from;
             animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
                 () =>
@@ -121,7 +134,6 @@ namespace ArdJam2026.Gameplay
 
         public void PrepareMovement()
         {
-            transform.DOKill();
             MoveCount = Speed;
         }
     }
