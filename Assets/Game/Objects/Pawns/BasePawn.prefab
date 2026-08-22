@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1509919143251062082}
   - component: {fileID: 8289757003983913576}
   - component: {fileID: 5691975858939830722}
+  - component: {fileID: 1921241285272515709}
   m_Layer: 0
   m_Name: BasePawn
   m_TagString: Untagged
@@ -47,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.Pawn
   speed: 1
-  moveSpeed: 3
   animations: {fileID: 5691975858939830722}
+  moveAnimation: {fileID: 1921241285272515709}
 --- !u!114 &5691975858939830722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +63,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Animatable
   animator: {fileID: 1874495225574575060}
+--- !u!114 &1921241285272515709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004425785170420465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2226a39b38982034f8f1a2891f4ecf96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveAnimation
+  moveSpeed: 3
 --- !u!1001 &727862020625696284
 PrefabInstance:
   m_ObjectHideFlags: 0

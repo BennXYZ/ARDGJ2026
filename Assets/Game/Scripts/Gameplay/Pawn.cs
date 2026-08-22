@@ -11,12 +11,11 @@ namespace ArdJam2026.Gameplay
         [SerializeField]
         private int speed = 1;
 
-        [SerializeField] private float moveSpeed = 2;
-
         [ShowInInspector]
         public bool IsPossessed { get; private set; }
 
         [SerializeField, GetComponent] private Animatable animations;
+        [SerializeField, GetComponent] private MoveAnimation moveAnimation;
 
         public int Speed => speed;
 
@@ -26,11 +25,7 @@ namespace ArdJam2026.Gameplay
 
         public int MoveCount { get; private set; }
 
-        private readonly Queue<Vector3> movementTargets = new();
-        private Vector3? currentMovementTarget;
-        private bool movePawn;
-
-        public bool IsMoving => movementTargets.Count > 0 || currentMovementTarget.HasValue;
+        public bool IsMoving => moveAnimation == null || (moveAnimation.IsMoving);
 
         public void Interact()
         {
@@ -45,6 +40,12 @@ namespace ArdJam2026.Gameplay
         private void InteractionFinished()
         {
             //TODO(bz): movement finished, update interactables
+        }
+
+        protected override void Initialize()
+        {
+            if (moveAnimation)
+                moveAnimation.moveSpeed *= speed;
         }
 
         public void Move(Vector2Int direction)
@@ -67,9 +68,7 @@ namespace ArdJam2026.Gameplay
             if (tile && tile.Collides)
             {
                 MoveCount = 0;
-                Vector3 moveDirection = (endPosition - currentPosition).normalized;
-                movementTargets.Enqueue(currentPosition + moveDirection * 0.3f);
-                movementTargets.Enqueue(currentPosition);
+                PushBlockedMovement(currentPosition, endPosition);
                 PlayMoveAnimation(animationName);
                 return;
             }
@@ -79,9 +78,7 @@ namespace ArdJam2026.Gameplay
                 if (collider.IsStatic)
                 {
                     MoveCount = 0;
-                    Vector3 moveDirection = (endPosition - currentPosition).normalized;
-                    movementTargets.Enqueue(currentPosition + moveDirection * 0.3f);
-                    movementTargets.Enqueue(currentPosition);
+                    PushBlockedMovement(currentPosition, endPosition);
                     PlayMoveAnimation(animationName);
                 }
 
@@ -91,9 +88,7 @@ namespace ArdJam2026.Gameplay
                 if (!pushable.CanPush(direction))
                 {
                     MoveCount = 0;
-                    Vector3 moveDirection = (endPosition - currentPosition).normalized;
-                    movementTargets.Enqueue(currentPosition + moveDirection * 0.3f);
-                    movementTargets.Enqueue(currentPosition);
+                    PushBlockedMovement(currentPosition, endPosition);
                     PlayMoveAnimation(animationName);
                     return;
                 }
@@ -103,37 +98,19 @@ namespace ArdJam2026.Gameplay
 
             MoveCount--;
 
-            movementTargets.Enqueue(endPosition);
+            moveAnimation?.PushMovement(endPosition);
             Location = newPosition;
             if (MoveCount == 0)
             {
                 PlayMoveAnimation(animationName);
             }
-
         }
 
-        private void Update()
+        private void PushBlockedMovement(Vector3 currentPosition, Vector3 endPosition)
         {
-            if (!movePawn)
-                return;
-            if (movementTargets.Count <= 0 && currentMovementTarget == null)
-                return;
-
-            currentMovementTarget ??= movementTargets.Dequeue();
-
-            Vector3 direction = (currentMovementTarget.Value - transform.position).normalized;
-            transform.Translate(direction * speed * moveSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, currentMovementTarget.Value) < 0.1f)
-            {
-                if (movementTargets.Count <= 0)
-                {
-                    transform.position = currentMovementTarget.Value;
-                    movePawn = false;
-                    MovementFinished();
-                }
-
-                currentMovementTarget = null;
-            }
+            Vector3 moveDirection = (endPosition - currentPosition).normalized;
+            moveAnimation?.PushMovement(currentPosition + moveDirection * 0.3f);
+            moveAnimation?.PushMovement(currentPosition);
         }
 
         private void PlayMoveAnimation(string animationName)
@@ -141,7 +118,7 @@ namespace ArdJam2026.Gameplay
             animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
                 () =>
                 {
-                    movePawn = true;
+                    moveAnimation?.Play();
                 }, 3));
         }
 
@@ -165,9 +142,7 @@ namespace ArdJam2026.Gameplay
         public void PrepareMovement()
         {
             transform.position = Room.Level.GetCellCenterWorld((Vector3Int)Location);
-            movementTargets.Clear();
-            currentMovementTarget = null;
-            movePawn = false;
+            moveAnimation?.Clear();
             MoveCount = Speed;
         }
     }
