@@ -2,7 +2,27 @@ fileFormatVersion: 2
 guid: 9f53f5c18a107544b94bb90774ccd858
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Barrier_Blocking
+    second: {fileID: 7400000, guid: 2e150ad2d907ecb48976ee221ee302b4, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Barrier_Closing
+    second: {fileID: 7400000, guid: 359b7e75ac0433a41ae52c0e1ab8d653, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Barrier_Open
+    second: {fileID: 7400000, guid: 40283a046a1961d46acecbf5eaefa62f, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Barrier_Opening
+    second: {fileID: 7400000, guid: b33ee39376c0a8748a76c69548848876, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -101,7 +121,7 @@ ScriptedImporter:
     addShadowCasters: 0
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
-  platformSettingsDirtyTick: 639229999249846152
+  platformSettingsDirtyTick: 639230261286275909
   singleSpriteImportData:
   - name: 
     originalName: 

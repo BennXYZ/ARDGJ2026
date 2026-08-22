@@ -7,6 +7,8 @@ namespace ArdJam2026.Gameplay
     {
         public UnityEvent OnOpen;
         public UnityEvent OnClose;
+        public UnityEvent OnInitOpen;
+        public UnityEvent OnInitClosed;
 
         [SerializeField]
         private bool isOpen;
@@ -33,9 +35,13 @@ namespace ArdJam2026.Gameplay
             }
 
             if (isOpen)
-                OnOpen.Invoke();
+            {
+                OnInitOpen.Invoke();
+            }
             else
-                OnClose.Invoke();
+            {
+                OnInitClosed.Invoke();
+            }
         }
 
         public void Open()

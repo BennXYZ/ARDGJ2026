@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using SaintsField;
 using SaintsField.Playa;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace ArdJam2026.Gameplay
         [ShowInInspector]
         public bool IsPossessed { get; private set; }
 
-        private Animatable animations;
+        [SerializeField, GetComponent] private Animatable animations;
 
         public int Speed => speed;
 
@@ -116,12 +117,6 @@ namespace ArdJam2026.Gameplay
             IsPossessed = true;
             if (animations)
                 animations.PlayAnimation("Possess", 0, PlayIdleAnimation);
-        }
-
-        protected override void Initialize()
-        {
-            animations = GetComponent<Animatable>();
-            base.Initialize();
         }
 
         public void PrepareMovement()
