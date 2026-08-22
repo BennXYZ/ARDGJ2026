@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.Pawn
   speed: 1
+  moveSpeed: 3
+  animations: {fileID: 5691975858939830722}
 --- !u!114 &5691975858939830722
 MonoBehaviour:
   m_ObjectHideFlags: 0

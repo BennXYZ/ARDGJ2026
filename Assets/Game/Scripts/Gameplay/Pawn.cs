@@ -11,6 +11,8 @@ namespace ArdJam2026.Gameplay
         [SerializeField]
         private int speed = 1;
 
+        [SerializeField] private float moveSpeed = 2;
+
         [ShowInInspector]
         public bool IsPossessed { get; private set; }
 
@@ -23,6 +25,10 @@ namespace ArdJam2026.Gameplay
         public bool IsColliding => true;
 
         public int MoveCount { get; private set; }
+
+        private readonly Queue<Vector3> movementTargets = new();
+        private Vector3? currentMovementTarget;
+        private bool movePawn;
 
         public void Interact()
         {
@@ -42,23 +48,27 @@ namespace ArdJam2026.Gameplay
         public void Move(Vector2Int direction)
         {
             Vector2Int newPosition = Location + direction;
-            Vector3 startPosition = Room.Level.GetCellCenterWorld((Vector3Int)Location);
+            Vector3 currentPosition = Room.Level.GetCellCenterWorld((Vector3Int)Location);
             Vector3 endPosition = Room.Level.GetCellCenterWorld((Vector3Int)newPosition);
+
             string animationName = "Possessed_Idle";
-            if (newPosition.x > Location.x)
+            if (direction.x > 0)
                 animationName = "Move_Right";
-            if (newPosition.x < Location.x)
+            if (direction.x < 0)
                 animationName = "Move_Left";
-            if (newPosition.y > Location.y)
+            if (direction.y > 0)
                 animationName = "Move_Up";
-            if (newPosition.y < Location.y)
+            if (direction.y < 0)
                 animationName = "Move_Down";
 
             GameplayTile tile = Room.GetTile(newPosition);
             if (tile && tile.Collides)
             {
                 MoveCount = 0;
-                PlayBlockedMoveAnimation(animationName, startPosition, endPosition);
+                Vector3 moveDirection = (endPosition - currentPosition).normalized;
+                movementTargets.Enqueue(currentPosition + moveDirection * 0.3f);
+                movementTargets.Enqueue(currentPosition);
+                PlayMoveAnimation(animationName);
                 return;
             }
 
@@ -67,8 +77,10 @@ namespace ArdJam2026.Gameplay
                 if (collider.IsStatic)
                 {
                     MoveCount = 0;
-                    PlayBlockedMoveAnimation(animationName, startPosition, endPosition);
-                    return;
+                    Vector3 moveDirection = (endPosition - currentPosition).normalized;
+                    movementTargets.Enqueue(currentPosition + moveDirection * 0.3f);
+                    movementTargets.Enqueue(currentPosition);
+                    PlayMoveAnimation(animationName);
                 }
 
                 if (collider is not IPushable pushable)
@@ -77,7 +89,10 @@ namespace ArdJam2026.Gameplay
                 if (!pushable.CanPush(direction))
                 {
                     MoveCount = 0;
-                    PlayBlockedMoveAnimation(animationName, startPosition, endPosition);
+                    Vector3 moveDirection = (endPosition - currentPosition).normalized;
+                    movementTargets.Enqueue(currentPosition + moveDirection * 0.3f);
+                    movementTargets.Enqueue(currentPosition);
+                    PlayMoveAnimation(animationName);
                     return;
                 }
 
@@ -86,32 +101,45 @@ namespace ArdJam2026.Gameplay
 
             MoveCount--;
 
-            PlayMoveAnimation(animationName, startPosition, endPosition);
-
+            movementTargets.Enqueue(endPosition);
             Location = newPosition;
+            if (MoveCount == 0)
+            {
+                PlayMoveAnimation(animationName);
+            }
 
         }
 
-        private void PlayBlockedMoveAnimation(string animationName, Vector3 from, Vector3 to)
+        private void Update()
         {
-            transform.DOKill();
-            transform.position = from;
-            to = from + (to - from).normalized * (to - from).magnitude * 0.4f;
-            animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
-                () =>
+            if (!movePawn)
+                return;
+            if (movementTargets.Count <= 0 && currentMovementTarget == null)
+                return;
+
+            currentMovementTarget ??= movementTargets.Dequeue();
+
+            Vector3 direction = (currentMovementTarget.Value - transform.position).normalized;
+            transform.Translate(direction * speed * moveSpeed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, currentMovementTarget.Value) < 0.1f)
+            {
+                if (movementTargets.Count <= 0)
                 {
-                    transform.DOMove(to, 0.15f).SetEase(Ease.Linear).SetLoops(2, LoopType.Yoyo);
-                }, 3));
+                    transform.position = currentMovementTarget.Value;
+                    movePawn = false;
+                    MovementFinished();
+                }
+
+                currentMovementTarget = null;
+            }
         }
 
-        private void PlayMoveAnimation(string animationName, Vector3 from, Vector3 to)
+        private void PlayMoveAnimation(string animationName)
         {
-            transform.DOKill();
-            transform.position = from;
             animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
                 () =>
                 {
-                    transform.DOMove(to, 0.3f).SetEase(Ease.Linear).OnComplete(MovementFinished);
+                    movePawn = true;
                 }, 3));
         }
 
@@ -134,6 +162,10 @@ namespace ArdJam2026.Gameplay
 
         public void PrepareMovement()
         {
+            transform.position = Room.Level.GetCellCenterWorld((Vector3Int)Location);
+            movementTargets.Clear();
+            currentMovementTarget = null;
+            movePawn = false;
             MoveCount = Speed;
         }
     }
