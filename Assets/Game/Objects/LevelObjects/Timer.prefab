@@ -279,7 +279,7 @@ MonoBehaviour:
   parts:
   - {fileID: 5978802165121478965}
   - {fileID: 7062586689546500454}
-  fallbackChar: '-'
+  fallbackChar: 0
 --- !u!1001 &4436229303790808912
 PrefabInstance:
   m_ObjectHideFlags: 0
