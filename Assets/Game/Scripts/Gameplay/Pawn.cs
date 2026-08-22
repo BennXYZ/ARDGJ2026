@@ -26,7 +26,17 @@ namespace ArdJam2026.Gameplay
 
         public void Interact()
         {
-            // TODO: Trigger animation
+            if (animations)
+                animations.PlayAnimation("Interact", 0, () =>
+                {
+                    PlayIdleAnimation();
+                    InteractionFinished();
+                });
+        }
+
+        private void InteractionFinished()
+        {
+            //TODO(bz): movement finished, update interactables
         }
 
         public void Move(Vector2Int direction)
@@ -89,8 +99,13 @@ namespace ArdJam2026.Gameplay
             animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
                 () =>
                 {
-                    transform.DOMove(to, 0.3f).SetEase(Ease.Linear);
+                    transform.DOMove(to, 0.3f).SetEase(Ease.Linear).OnComplete(MovementFinished);
                 },3));
+        }
+
+        private void MovementFinished()
+        {
+            //TODO(bz): movement finished, update interactables
         }
 
         private void PlayIdleAnimation()

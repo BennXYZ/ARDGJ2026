@@ -11,6 +11,8 @@ namespace ArdJam2026.Gameplay
         [SerializeField]
         private bool state;
 
+        [SerializeField] private Animator animator;
+
         public bool IsStatic => true;
 
         public bool IsColliding => true;
@@ -25,6 +27,8 @@ namespace ArdJam2026.Gameplay
         public void Interact()
         {
             state = !state;
+
+            animator.Play(state ? "Lever_Activate" : "Lever_Deactivate");
 
             InvokeTriggers();
         }
