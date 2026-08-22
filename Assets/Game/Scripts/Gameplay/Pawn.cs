@@ -3,6 +3,7 @@ using DG.Tweening;
 using SaintsField;
 using SaintsField.Playa;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 
 namespace ArdJam2026.Gameplay
 {
@@ -16,6 +17,7 @@ namespace ArdJam2026.Gameplay
 
         [SerializeField, GetComponent] private Animatable animations;
         [SerializeField, GetComponent] private MoveAnimation moveAnimation;
+        private bool dead;
 
         public int Speed => speed;
 
@@ -129,7 +131,14 @@ namespace ArdJam2026.Gameplay
 
         private void PlayIdleAnimation()
         {
-            animations.PlayAnimation(IsPossessed ? "Possessed_Idle" : "Normal_Idle");
+            if (dead)
+            {
+                animations.PlayAnimation("Death_Vaporize");
+            }
+            else
+            {
+                animations.PlayAnimation(IsPossessed ? "Possessed_Idle" : "Normal_Idle");
+            }
         }
 
         public void Possess()
@@ -148,7 +157,9 @@ namespace ArdJam2026.Gameplay
 
         public void Die()
         {
-            animations.PlayAnimation("Death_Vaporize");
+            dead = true;
+            //MoveCount = 0;
+            //TODO(bz) set MoveCount to 0 breaks speedy pawns and prevents their animation
         }
     }
 }

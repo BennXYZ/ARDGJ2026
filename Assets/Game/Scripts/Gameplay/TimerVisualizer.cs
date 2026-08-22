@@ -40,7 +40,7 @@ namespace ArdJam2026.Gameplay
             foreach (Digit digit in digits)
             {
                 char value = digit.Value;
-                Debug.Assert(value == '\0', "Digit has no value", this);
+                Debug.Assert(value != '\0', "Digit has no value", this);
                 if (value != '\0')
                     digitToChars[value] = digit.Sprite;
             }
