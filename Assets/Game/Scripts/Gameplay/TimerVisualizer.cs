@@ -11,8 +11,13 @@ namespace ArdJam2026.Gameplay
         [Serializable]
         private class Digit
         {
-            public string value;
-            public Sprite sprite;
+            [SerializeField]
+            private string value;
+            [SerializeField]
+            private Sprite sprite;
+
+            public char Value => value.Length > 0 ? value[0] : '\0';
+            public Sprite Sprite => sprite;
         }
 
         [GetComponent]
@@ -34,9 +39,10 @@ namespace ArdJam2026.Gameplay
             Debug.Assert(digits.Count != 0, "No digits assigned", this);
             foreach (Digit digit in digits)
             {
-                Debug.Assert(digit.value.Length == 1, "Digit Value must be 1", this);
-                if (digit.value.Length > 0)
-                    digitToChars[digit.value[0]] = digit.sprite;
+                char value = digit.Value;
+                Debug.Assert(value == '\0', "Digit has no value", this);
+                if (value != '\0')
+                    digitToChars[value] = digit.Sprite;
             }
 
             timer.TimerChanged.AddListener(TimerChangedCallback);
