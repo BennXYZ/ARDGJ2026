@@ -76,6 +76,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveAnimation
   moveSpeed: 3
+  onMoveLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onMoveRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onMoveUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onMoveDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onMoveEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &727862020625696284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88,6 +103,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpriteRenderer
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 4a2c80bd2930cbf4b956833c4939fa60, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6912d0f5324b99a49b68ef4d49d1680c, type: 2}
     - target: {fileID: 7878350319992209165, guid: 4a2c80bd2930cbf4b956833c4939fa60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

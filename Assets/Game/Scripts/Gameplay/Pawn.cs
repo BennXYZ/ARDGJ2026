@@ -145,5 +145,10 @@ namespace ArdJam2026.Gameplay
             moveAnimation?.Clear();
             MoveCount = Speed;
         }
+
+        public void Die()
+        {
+            animations.PlayAnimation("Death_Vaporize");
+        }
     }
 }

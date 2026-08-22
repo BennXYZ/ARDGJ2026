@@ -124,6 +124,7 @@ namespace ArdJam2026.Gameplay
             GameplayTile tile = GetTile(pawn.Location);
             if (tile && tile.Deadly)
             {
+                pawn.Die();
                 Debug.LogError("You're dead. Not big surprise", pawn);
                 pawnDied = true;
             }
