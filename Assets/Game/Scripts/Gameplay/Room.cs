@@ -20,6 +20,8 @@ namespace ArdJam2026.Gameplay
 
         [ShowInInspector]
         private readonly List<Pawn> pawns = new();
+        [ShowInInspector]
+        private readonly List<Goal> goals = new();
         private readonly List<IInteractible> interactibles = new();
         private readonly List<IFloorButton> floorButtons = new();
         private readonly List<ICollider> colliders = new();
@@ -31,6 +33,7 @@ namespace ArdJam2026.Gameplay
             RoomObject[] objects = FindObjectsByType<RoomObject>();
 
             pawns.Clear();
+            goals.Clear();
             interactibles.Clear();
             floorButtons.Clear();
             colliders.Clear();
@@ -48,8 +51,12 @@ namespace ArdJam2026.Gameplay
                     colliders.Add(collider);
                 if (roomObject is ITurnHandler turnHandler)
                     turnHandlers.Add(turnHandler);
+                if (roomObject is Goal goal)
+                    goals.Add(goal);
                 roomObject.Initialize(this);
             }
+
+            Debug.Assert(goals.Count > 0, "No goals in level. Unwinnable.", this);
 
             foreach (RoomObject roomObject in objects)
             {
@@ -164,7 +171,9 @@ namespace ArdJam2026.Gameplay
         private void OnTurnComplete()
         {
             if (pawnDied)
-                gameState.GameOver();
+                gameState.GameOver(GameState.GameOverReason.Death);
+            else if (goals.TrueForAll(g => g.Reached))
+                gameState.GameOver(GameState.GameOverReason.Win);
 
             foreach (ITurnHandler turnHandler in turnHandlers)
             {

@@ -14,6 +14,12 @@ namespace ArdJam2026.Gameplay
             GameWon
         }
 
+        public enum GameOverReason
+        {
+            Win,
+            Death
+        }
+
         private readonly GameInstance gameInstance;
         private readonly PlayerController component;
 
@@ -67,9 +73,9 @@ namespace ArdJam2026.Gameplay
             }
         }
 
-        public void GameOver()
+        public void GameOver(GameOverReason reason)
         {
-            CurrentState = State.GameOver;
+            CurrentState = reason == GameOverReason.Win ? State.GameWon : State.GameOver;
         }
     }
 }
