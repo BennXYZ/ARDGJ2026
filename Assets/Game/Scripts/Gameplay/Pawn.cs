@@ -1,4 +1,7 @@
-﻿using SaintsField.Playa;
+﻿using System;
+using System.Collections.Generic;
+using DG.Tweening;
+using SaintsField.Playa;
 using UnityEngine;
 
 namespace ArdJam2026.Gameplay
@@ -10,6 +13,8 @@ namespace ArdJam2026.Gameplay
 
         [ShowInInspector]
         public bool IsPossessed { get; private set; }
+
+        private Animatable animations;
 
         public int Speed => speed;
 
@@ -42,18 +47,49 @@ namespace ArdJam2026.Gameplay
             }
 
             MoveCount--;
-            Location = newPosition;
-            transform.position = Room.Level.GetCellCenterWorld((Vector3Int)Location);
-            Location = Room.GetLocation(transform);
 
+            Vector3 startPosition = Room.Level.GetCellCenterWorld((Vector3Int)Location);
+            Vector3 endPosition = Room.Level.GetCellCenterWorld((Vector3Int)newPosition);
+            if (newPosition.x > Location.x)
+                PlayMoveAnimation("Move_Right", startPosition, endPosition);
+            if (newPosition.x < Location.x)
+                PlayMoveAnimation("Move_Left", startPosition, endPosition);
+            if (newPosition.y > Location.y)
+                PlayMoveAnimation("Move_Up", startPosition, endPosition);
+            if (newPosition.y < Location.y)
+                PlayMoveAnimation("Move_Down", startPosition, endPosition);
+
+            Location = newPosition;
+
+        }
+
+        private void PlayMoveAnimation(string animationName, Vector3 from, Vector3 to)
+        {
+            transform.DOKill();
+            transform.position = from;
+            animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
+                () =>
+                {
+                    transform.DOMove(to, 0.3f).SetEase(Ease.Linear);
+                },3));
+        }
+
+        private void PlayIdleAnimation()
+        {
+            animations.PlayAnimation(IsPossessed ? "Possessed_Idle" : "Normal_Idle");
         }
 
         public void Possess()
         {
             IsPossessed = true;
-            SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
-            if (renderer)
-                renderer.color = Color.chocolate;
+            if(animations)
+                animations.PlayAnimation("Possess", 0, PlayIdleAnimation);
+        }
+
+        protected override void Initialize()
+        {
+            animations = GetComponent<Animatable>();
+            base.Initialize();
         }
 
         public void PrepareMovement()
