@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MoveAnimation : MonoBehaviour
 {
     public float moveSpeed = 3;
     private readonly Queue<Vector3> movementTargets = new();
     private Vector3? currentMovementTarget;
+
+    public UnityEvent onMoveLeft, onMoveRight, onMoveUp, onMoveDown, onMoveEnd;
     public MoveStates MoveState { get; private set; }
 
     public bool IsMoving => MoveState != MoveStates.Idle;
@@ -41,6 +44,18 @@ public class MoveAnimation : MonoBehaviour
     {
         if (MoveState == MoveStates.Preparation)
             MoveState = MoveStates.Moving;
+
+        if (!movementTargets.TryPeek(out Vector3 firstTarget)) 
+            return;
+
+        if (firstTarget.x > transform.position.x)
+            onMoveRight.Invoke();
+        else if (firstTarget.x < transform.position.x)
+            onMoveLeft.Invoke();
+        else if (firstTarget.y > transform.position.y)
+            onMoveUp.Invoke();
+        else if (firstTarget.y < transform.position.y)
+            onMoveDown.Invoke();
     }
 
     public void PushMovement(Vector3 target)
@@ -59,7 +74,7 @@ public class MoveAnimation : MonoBehaviour
 
     public void MovementFinished()
     {
-
+        onMoveEnd.Invoke();
     }
 
     public enum MoveStates
