@@ -1,4 +1,5 @@
 using SaintsField.Playa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
@@ -20,6 +21,7 @@ namespace ArdJam2026.Gameplay
         private readonly List<IInteractible> interactibles = new();
         private readonly List<IFloorButton> floorButtons = new();
         private readonly List<ICollider> colliders = new();
+        private readonly List<ITurnHandler> turnHandlers = new();
 
         public void Initialize(GameState gameState)
         {
@@ -30,25 +32,20 @@ namespace ArdJam2026.Gameplay
             interactibles.Clear();
             floorButtons.Clear();
             colliders.Clear();
+            turnHandlers.Clear();
 
             foreach (RoomObject roomObject in objects)
             {
                 if (roomObject is Pawn pawn)
-                {
                     pawns.Add(pawn);
-                }
                 if (roomObject is IInteractible interactible)
-                {
                     interactibles.Add(interactible);
-                }
                 if (roomObject is IFloorButton floorButton)
-                {
                     floorButtons.Add(floorButton);
-                }
                 if (roomObject is ICollider collider)
-                {
                     colliders.Add(collider);
-                }
+                if (roomObject is ITurnHandler turnHandler)
+                    turnHandlers.Add(turnHandler);
                 roomObject.Initialize(this);
             }
 
@@ -68,6 +65,7 @@ namespace ArdJam2026.Gameplay
                     break;
                 }
             }
+            OnTurn();
         }
 
         public void PerformMove(Vector2Int direction)
@@ -97,6 +95,7 @@ namespace ArdJam2026.Gameplay
             }
 
             PostMoveChecks();
+            OnTurn();
         }
 
         public void PerformInteract()
@@ -116,6 +115,16 @@ namespace ArdJam2026.Gameplay
                         }
                     }
                 }
+            }
+
+            OnTurn();
+        }
+
+        private void OnTurn()
+        {
+            foreach (ITurnHandler turnHandler in turnHandlers)
+            {
+                turnHandler.OnTurn();
             }
         }
 
