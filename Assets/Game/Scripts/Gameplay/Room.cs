@@ -12,7 +12,7 @@ namespace ArdJam2026.Gameplay
     {
         [SerializeField]
         private Tilemap level;
-        private GameState gameState;
+        private GameplayGameState gameState;
         private bool turnStarted;
         private bool pawnDied;
 
@@ -27,7 +27,7 @@ namespace ArdJam2026.Gameplay
         private readonly List<ICollider> colliders = new();
         private readonly List<ITurnHandler> turnHandlers = new();
 
-        public void Initialize(GameState gameState)
+        public void Initialize(GameplayGameState gameState)
         {
             this.gameState = gameState;
             RoomObject[] objects = FindObjectsByType<RoomObject>();
@@ -171,9 +171,9 @@ namespace ArdJam2026.Gameplay
         private void OnTurnComplete()
         {
             if (pawnDied)
-                gameState.GameOver(GameState.GameOverReason.Death);
+                gameState.GameOver(GameplayGameState.GameOverReason.Death);
             else if (goals.TrueForAll(g => g.Reached))
-                gameState.GameOver(GameState.GameOverReason.Win);
+                gameState.GameOver(GameplayGameState.GameOverReason.Win);
 
             foreach (ITurnHandler turnHandler in turnHandlers)
             {

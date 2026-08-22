@@ -7,14 +7,14 @@ namespace ArdJam2026.Gameplay
     {
         private const float DEADZONE = 0.3f;
 
-        private GameState gameState;
+        private GameplayGameState gameState;
         private InputAction moveAction;
         private InputAction interactAction;
         private InputAction possessAction;
 
         private bool movePressed = false;
 
-        public void Initialize(GameState gameState)
+        public void Initialize(GameplayGameState gameState)
         {
             this.gameState = gameState;
             moveAction = InputSystem.actions.FindAction("Move");

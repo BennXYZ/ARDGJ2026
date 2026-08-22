@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace ArdJam2026.Gameplay
 {
-    public class GameState
+    public class GameplayGameState : GameStateBase
     {
         public enum State
         {
@@ -20,29 +20,29 @@ namespace ArdJam2026.Gameplay
             Death
         }
 
-        private readonly GameInstance gameInstance;
-        private readonly PlayerController component;
+        private PlayerController component;
 
         public Room CurrentRoom { get; private set; }
         public Camera CurrentCamera { get; private set; }
 
         public State CurrentState { get; private set; } = State.Paused;
 
-        public GameState(GameInstance gameInstance)
+        public GameplayGameState(GameInstance gameInstance) : base(gameInstance)
         {
-            this.gameInstance = gameInstance;
-
-            GameObject gameObject = new("GameState");
-            component = gameObject.AddComponent<PlayerController>();
-            component.Initialize(this);
-            GameObject.DontDestroyOnLoad(gameObject);
         }
 
-        public void SceneLoaded(Scene scene)
+        public override void SceneLoaded(Scene scene)
         {
             CurrentCamera = Camera.main;
             Debug.Assert(CurrentCamera, "Cannot find camera.");
             CurrentRoom = GameObject.FindAnyObjectByType<Room>();
+            Debug.Assert(CurrentRoom, $"Could not find a room in the scene {scene.path}");
+            if (!CurrentRoom)
+            {
+                GameInstance.LoadScene(GameInstance.Configuration.MenuScene);
+                return;
+            }
+
             CurrentRoom.Initialize(this);
 
             CurrentState = State.Running;
@@ -76,6 +76,20 @@ namespace ArdJam2026.Gameplay
         public void GameOver(GameOverReason reason)
         {
             CurrentState = reason == GameOverReason.Win ? State.GameWon : State.GameOver;
+        }
+
+        public override void Start()
+        {
+            GameObject gameObject = new("GameState");
+            component = gameObject.AddComponent<PlayerController>();
+            component.Initialize(this);
+            GameObject.DontDestroyOnLoad(gameObject);
+        }
+
+        public override void Stop()
+        {
+            GameObject.Destroy(component.gameObject);
+            component = null;
         }
     }
 }
