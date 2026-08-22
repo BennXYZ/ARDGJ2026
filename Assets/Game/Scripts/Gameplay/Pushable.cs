@@ -43,9 +43,7 @@ namespace ArdJam2026.Gameplay
 
                 omitAnimation = false;
 
-                transform.position = Room.Level.GetCellCenterWorld((Vector3Int)Location);
                 Location = newPosition;
-                moveAnimation.Clear();
                 moveAnimation.PushMovement(Room.Level.GetCellCenterWorld((Vector3Int)Location));
                 moveAnimation.Play();
 
