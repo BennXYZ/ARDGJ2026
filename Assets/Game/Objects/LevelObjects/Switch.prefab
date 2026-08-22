@@ -51,8 +51,37 @@ MonoBehaviour:
   Off:
     m_PersistentCalls:
       m_Calls: []
+  InteractOn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2661592700724082262}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Lever_Activate
+          m_BoolArgument: 0
+        m_CallState: 2
+  InteractOff:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2661592700724082262}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Lever_Deactivate
+          m_BoolArgument: 0
+        m_CallState: 2
   state: 0
-  animator: {fileID: 2661592700724082262}
 --- !u!1001 &3816107624685058974
 PrefabInstance:
   m_ObjectHideFlags: 0

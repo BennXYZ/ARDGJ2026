@@ -7,11 +7,11 @@ namespace ArdJam2026.Gameplay
     {
         public UnityEvent On;
         public UnityEvent Off;
+        public UnityEvent InteractOn;
+        public UnityEvent InteractOff;
 
         [SerializeField]
         private bool state;
-
-        [SerializeField] private Animator animator;
 
         public bool IsStatic => true;
 
@@ -28,7 +28,7 @@ namespace ArdJam2026.Gameplay
         {
             state = !state;
 
-            animator.Play(state ? "Lever_Activate" : "Lever_Deactivate");
+            (state ? InteractOn : InteractOff).Invoke();
 
             InvokeTriggers();
         }
