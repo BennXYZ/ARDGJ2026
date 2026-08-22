@@ -1,6 +1,8 @@
 ﻿using SaintsField;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace ArdJam2026
 {
@@ -12,6 +14,11 @@ namespace ArdJam2026
 
         [SerializeField]
         private List<SceneReference> levels;
+
+        [SerializeField]
+        private EventSystem eventSystem;
+
+        public EventSystem EventSystem => eventSystem;
 
         public SceneReference MenuScene => menuScene;
 

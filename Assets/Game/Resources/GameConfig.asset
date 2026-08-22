@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12db55d31bf0f5468d84d875a3b76aa, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.GameConfiguration
+  menuScene:
+    guid: 
+    index: 0
+    path: 
+  levels: []
+  eventSystem: {fileID: 5651291898822128778, guid: 13eaac5a2549bb048b040d6dbb9c577b, type: 3}

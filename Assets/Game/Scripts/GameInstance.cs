@@ -2,6 +2,7 @@
 using SaintsField;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -81,6 +82,11 @@ namespace ArdJam2026
 
         private void StartGame()
         {
+            EventSystem eventSystem = GameObject.Instantiate(Configuration.EventSystem);
+            Debug.Assert(eventSystem, "Could not create event system");
+            eventSystem.name = "EventSystem";
+            GameObject.DontDestroyOnLoad(eventSystem.gameObject);
+
             InputSystem.actions.Enable();
 
 #if UNITY_EDITOR
