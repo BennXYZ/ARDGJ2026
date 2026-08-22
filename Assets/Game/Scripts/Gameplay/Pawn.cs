@@ -82,7 +82,6 @@ namespace ArdJam2026.Gameplay
 
         private void PlayBlockedMoveAnimation(string animationName, Vector3 from, Vector3 to)
         {
-            transform.DOKill();
             transform.position = from;
             to = from + (to - from).normalized * (to - from).magnitude * 0.4f;
             animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
@@ -94,13 +93,12 @@ namespace ArdJam2026.Gameplay
 
         private void PlayMoveAnimation(string animationName, Vector3 from, Vector3 to)
         {
-            transform.DOKill();
             transform.position = from;
             animations.PlayAnimation(animationName, 0, PlayIdleAnimation, new Animatable.AnimationEvent(
                 () =>
                 {
                     transform.DOMove(to, 0.3f).SetEase(Ease.Linear).OnComplete(MovementFinished);
-                },3));
+                }, 3));
         }
 
         private void MovementFinished()
@@ -116,7 +114,7 @@ namespace ArdJam2026.Gameplay
         public void Possess()
         {
             IsPossessed = true;
-            if(animations)
+            if (animations)
                 animations.PlayAnimation("Possess", 0, PlayIdleAnimation);
         }
 
@@ -128,6 +126,7 @@ namespace ArdJam2026.Gameplay
 
         public void PrepareMovement()
         {
+            transform.DOKill();
             MoveCount = Speed;
         }
     }

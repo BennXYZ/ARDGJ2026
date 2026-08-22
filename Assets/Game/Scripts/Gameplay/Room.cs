@@ -49,6 +49,11 @@ namespace ArdJam2026.Gameplay
                 roomObject.Initialize(this);
             }
 
+            foreach (RoomObject roomObject in objects)
+            {
+                roomObject.PostInitialize();
+            }
+
             // Maybe the initial editing placed something on a button
             PostMoveChecks();
         }
@@ -137,11 +142,14 @@ namespace ArdJam2026.Gameplay
             return null;
         }
 
-        public bool TryGetColliderAt(Vector2Int position, out ICollider collider)
+        public bool TryGetColliderAt(Vector2Int position, out ICollider collider, ICollider self = default)
         {
             collider = default;
             foreach (ICollider checkedCollider in colliders)
             {
+                if (checkedCollider == self)
+                    continue;
+
                 if (checkedCollider.Location == position)
                 {
                     collider = checkedCollider;

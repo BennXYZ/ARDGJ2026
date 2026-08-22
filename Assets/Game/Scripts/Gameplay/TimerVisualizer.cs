@@ -31,7 +31,7 @@ namespace ArdJam2026.Gameplay
 
         private void Start()
         {
-            Debug.Assert(digits.Count == 10, "Not 10 digits assigned", this);
+            Debug.Assert(digits.Count != 0, "No digits assigned", this);
             foreach (Digit digit in digits)
             {
                 Debug.Assert(digit.value.Length == 1, "Digit Value must be 1", this);

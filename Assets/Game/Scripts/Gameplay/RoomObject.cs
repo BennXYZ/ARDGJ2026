@@ -1,4 +1,5 @@
 ﻿using SaintsField.Playa;
+using System;
 using UnityEngine;
 
 namespace ArdJam2026.Gameplay
@@ -25,5 +26,7 @@ namespace ArdJam2026.Gameplay
         }
 
         protected virtual void Initialize() { }
+
+        public virtual void PostInitialize() { }
     }
 }
