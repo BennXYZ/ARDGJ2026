@@ -9,6 +9,7 @@ namespace ArdJam2026.Gameplay
         public UnityEvent Off;
         public UnityEvent InteractOn;
         public UnityEvent InteractOff;
+        public UnityEvent OnInteract;
 
         [SerializeField]
         private bool state;
@@ -26,6 +27,8 @@ namespace ArdJam2026.Gameplay
 
         public void Interact()
         {
+            OnInteract.Invoke();
+
             state = !state;
 
             (state ? InteractOn : InteractOff).Invoke();
