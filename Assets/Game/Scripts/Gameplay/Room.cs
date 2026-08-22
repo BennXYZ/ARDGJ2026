@@ -166,7 +166,6 @@ namespace ArdJam2026.Gameplay
 
         private void PostMoveChecks()
         {
-            HashSet<Vector2Int> pawnLocations = new();
             foreach (Pawn pawn in pawns)
             {
                 GameplayTile tile = GetTile(pawn.Location);
@@ -175,13 +174,12 @@ namespace ArdJam2026.Gameplay
                     Debug.LogError("You're dead. Not big surprise", pawn);
                     gameState.GameOver();
                 }
-
-                pawnLocations.Add(pawn.Location);
             }
 
+            HashSet<Vector2Int> colliderLocations = new(colliders.Select(c => c.Location));
             foreach (IFloorButton floorButton in floorButtons)
             {
-                if (pawnLocations.Contains(floorButton.Location))
+                if (colliderLocations.Contains(floorButton.Location))
                     floorButton.Press();
                 else if (floorButton.IsPressed)
                     floorButton.Release();
