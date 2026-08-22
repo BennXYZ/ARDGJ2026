@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using SaintsField;
+using UnityEngine;
 
 namespace ArdJam2026.Gameplay
 {
+    [RequireComponent(typeof(MoveAnimation))]
     public class Pushable : RoomObject, IPushable, ICollider
     {
         private bool omitAnimation;
@@ -9,6 +11,7 @@ namespace ArdJam2026.Gameplay
         public bool IsStatic => false;
 
         public bool IsColliding => true;
+        [SerializeField, GetComponent] private MoveAnimation moveAnimation;
 
         public bool CanPush(Vector2Int direction)
         {
@@ -40,9 +43,12 @@ namespace ArdJam2026.Gameplay
                 omitAnimation = false;
                 // TODO: Move Animation
 
-                Location = newPosition;
-
                 transform.position = Room.Level.GetCellCenterWorld((Vector3Int)Location);
+                Location = newPosition;
+                moveAnimation.Clear();
+                moveAnimation.PushMovement(Room.Level.GetCellCenterWorld((Vector3Int)Location));
+                moveAnimation.Play();
+
             }
             omitAnimation = false;
         }
