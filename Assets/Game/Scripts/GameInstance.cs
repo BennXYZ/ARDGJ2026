@@ -1,5 +1,4 @@
 ﻿using ArdJam2026.Gameplay;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;

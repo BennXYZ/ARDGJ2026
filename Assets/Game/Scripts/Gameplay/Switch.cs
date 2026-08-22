@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace ArdJam2026.Gameplay
 {
-    public class Switch : MonoBehaviour, IInteractible, ICollider
+    public class Switch : RoomObject, IInteractible, ICollider
     {
         public UnityEvent On;
         public UnityEvent Off;
@@ -11,26 +11,15 @@ namespace ArdJam2026.Gameplay
         [SerializeField]
         private bool state;
 
-        private Room room;
-
-        public Vector2Int Location { get; private set; }
-
         public bool IsStatic => true;
 
         public bool IsColliding => true;
 
         public bool State => state;
 
-        public void Initialize(Room room)
+        protected override void Initialize()
         {
-            if (this.room != room)
-            {
-                this.room = room;
-
-                Location = room.GetLocation(transform);
-
-                InvokeTriggers();
-            }
+            InvokeTriggers();
         }
 
         public void Interact()

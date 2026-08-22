@@ -1,4 +1,4 @@
-using System;
+using SaintsField.Playa;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
@@ -15,6 +15,7 @@ namespace ArdJam2026.Gameplay
 
         public Tilemap Level => level;
 
+        [ShowInInspector]
         private readonly List<Pawn> pawns = new();
         private readonly List<IInteractible> interactibles = new();
         private readonly List<IFloorButton> floorButtons = new();
@@ -23,36 +24,36 @@ namespace ArdJam2026.Gameplay
         public void Initialize(GameState gameState)
         {
             this.gameState = gameState;
-            MonoBehaviour[] behaviours = FindObjectsByType<MonoBehaviour>();
+            RoomObject[] objects = FindObjectsByType<RoomObject>();
 
             pawns.Clear();
             interactibles.Clear();
             floorButtons.Clear();
             colliders.Clear();
 
-            foreach (MonoBehaviour behaviour in behaviours)
+            foreach (RoomObject roomObject in objects)
             {
-                if (behaviour is Pawn pawn)
+                if (roomObject is Pawn pawn)
                 {
-                    pawn.Initialize(this);
                     pawns.Add(pawn);
                 }
-                if (behaviour is IInteractible interactible)
+                if (roomObject is IInteractible interactible)
                 {
-                    interactible.Initialize(this);
                     interactibles.Add(interactible);
                 }
-                if (behaviour is IFloorButton floorButton)
+                if (roomObject is IFloorButton floorButton)
                 {
-                    floorButton.Initialize(this);
                     floorButtons.Add(floorButton);
                 }
-                if (behaviour is ICollider collider)
+                if (roomObject is ICollider collider)
                 {
-                    collider.Initialize(this);
                     colliders.Add(collider);
                 }
+                roomObject.Initialize(this);
             }
+
+            // Maybe the initial editing placed something on a button
+            PostMoveChecks();
         }
 
         public void Possess(Vector3 position)
@@ -95,25 +96,7 @@ namespace ArdJam2026.Gameplay
                 tries--;
             }
 
-            HashSet<Vector2Int> pawnLocations = new();
-            foreach (Pawn pawn in pawns)
-            {
-                GameplayTile tile = GetTile(pawn.Location);
-                if (tile && tile.Deadly)
-                {
-                    Debug.LogError("You're dead. Not big surprise", pawn);
-                    gameState.GameOver();
-                }
-            }
-
-
-            foreach (IFloorButton floorButton in floorButtons)
-            {
-                if (pawnLocations.Contains(floorButton.Location))
-                    floorButton.Press();
-                else if (floorButton.IsPressed)
-                    floorButton.Release();
-            }
+            PostMoveChecks();
         }
 
         public void PerformInteract()
@@ -162,6 +145,30 @@ namespace ArdJam2026.Gameplay
         public Vector2Int GetLocation(Transform transform)
         {
             return (Vector2Int)Level.WorldToCell(transform.position);
+        }
+
+        private void PostMoveChecks()
+        {
+            HashSet<Vector2Int> pawnLocations = new();
+            foreach (Pawn pawn in pawns)
+            {
+                GameplayTile tile = GetTile(pawn.Location);
+                if (tile && tile.Deadly)
+                {
+                    Debug.LogError("You're dead. Not big surprise", pawn);
+                    gameState.GameOver();
+                }
+
+                pawnLocations.Add(pawn.Location);
+            }
+
+            foreach (IFloorButton floorButton in floorButtons)
+            {
+                if (pawnLocations.Contains(floorButton.Location))
+                    floorButton.Press();
+                else if (floorButton.IsPressed)
+                    floorButton.Release();
+            }
         }
 
         public IEnumerable<Vector2Int> GetSurroundingCross(Vector2Int location)
