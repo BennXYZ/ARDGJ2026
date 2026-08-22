@@ -4165,6 +4165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a815bbc3558a8849b95af028550a4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.TimerVisualizer
+  timer: {fileID: 1841460440}
   digits:
   - value: 0
     sprite: {fileID: -8856784444463560043, guid: ba46e6505745c6a47911b43084dff82f, type: 3}
@@ -4186,10 +4187,13 @@ MonoBehaviour:
     sprite: {fileID: 507097984181360634, guid: ba46e6505745c6a47911b43084dff82f, type: 3}
   - value: 9
     sprite: {fileID: 8375625104944813326, guid: ba46e6505745c6a47911b43084dff82f, type: 3}
+  - value: '-'
+    sprite: {fileID: 2163130143886862570, guid: ba46e6505745c6a47911b43084dff82f, type: 3}
   parts:
-  - {fileID: 853739076}
-  - {fileID: 1872672766}
   - {fileID: 1465379490}
+  - {fileID: 1872672766}
+  - {fileID: 853739076}
+  fallbackChar: '-'
 --- !u!114 &1841460440
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,6 +26,9 @@ namespace ArdJam2026.Gameplay
         [SerializeField]
         private List<SpriteRenderer> parts;
 
+        [SerializeField]
+        private string fallbackChar;
+
         private void Start()
         {
             Debug.Assert(digits.Count == 10, "Not 10 digits assigned", this);
@@ -42,10 +45,11 @@ namespace ArdJam2026.Gameplay
 
         private void TimerChangedCallback(int value)
         {
+            char fallback = fallbackChar.Length > 0 ? fallbackChar[0] : '\0';
             string visualizedValue = value.ToString();
             for (int i = 0; i < parts.Count; i++)
             {
-                char digit = visualizedValue.Length > i ? visualizedValue[^(i + 1)] : '\0';
+                char digit = visualizedValue.Length > i ? visualizedValue[^(i + 1)] : fallback;
                 parts[i].sprite = digitToChars.GetValueOrDefault(digit, null);
             }
         }
