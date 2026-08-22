@@ -41,7 +41,6 @@ namespace ArdJam2026.Gameplay
                 Vector2Int newPosition = Location + direction;
 
                 omitAnimation = false;
-                // TODO: Move Animation
 
                 transform.position = Room.Level.GetCellCenterWorld((Vector3Int)Location);
                 Location = newPosition;
