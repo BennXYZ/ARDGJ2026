@@ -13,6 +13,7 @@ namespace ArdJam2026.Gameplay
         [SerializeField]
         private Tilemap level;
         private GameState gameState;
+        private bool pawnsAreMoving;
 
         public Tilemap Level => level;
 
@@ -75,6 +76,7 @@ namespace ArdJam2026.Gameplay
 
         public void PerformMove(Vector2Int direction)
         {
+            pawnsAreMoving = true;
             foreach (Pawn pawn in pawns)
             {
                 pawn.PrepareMovement();
@@ -98,9 +100,19 @@ namespace ArdJam2026.Gameplay
                 // Prevents endless loop
                 tries--;
             }
+        }
 
-            PostMoveChecks();
-            OnTurn();
+        private void Update()
+        {
+            if (pawnsAreMoving)
+            {
+                pawnsAreMoving = pawns.Any(p => p.IsMoving);
+                if (!pawnsAreMoving)
+                {
+                    PostMoveChecks();
+                    OnTurn();
+                }
+            }
         }
 
         public void PerformInteract()

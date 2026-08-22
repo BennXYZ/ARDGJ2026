@@ -30,6 +30,8 @@ namespace ArdJam2026.Gameplay
         private Vector3? currentMovementTarget;
         private bool movePawn;
 
+        public bool IsMoving => movementTargets.Count > 0 || currentMovementTarget.HasValue;
+
         public void Interact()
         {
             if (animations)
