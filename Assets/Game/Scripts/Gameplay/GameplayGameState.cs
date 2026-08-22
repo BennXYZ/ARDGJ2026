@@ -1,3 +1,4 @@
+using ArdJam2026.Gameplay.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -27,6 +28,9 @@ namespace ArdJam2026.Gameplay
 
         public State CurrentState { get; private set; } = State.Paused;
 
+        // TODO: Cleanup reference when changing level
+        private GameplayHud hud;
+
         public GameplayGameState(GameInstance gameInstance) : base(gameInstance)
         {
         }
@@ -46,6 +50,10 @@ namespace ArdJam2026.Gameplay
             CurrentRoom.Initialize(this);
 
             CurrentState = State.Running;
+
+            hud = GameObject.Instantiate<GameplayHud>(GameInstance.Configuration.GameplayHud, new InstantiateParameters() { scene = scene });
+            hud.Initialize(this);
+            hud.Show();
         }
 
         public void DoInteractAction()
@@ -78,6 +86,28 @@ namespace ArdJam2026.Gameplay
             CurrentState = reason == GameOverReason.Win ? State.GameWon : State.GameOver;
         }
 
+        public void Pause()
+        {
+            if (CurrentState != State.Running)
+                return;
+
+            CurrentState = State.Paused;
+            hud.Hide();
+
+            // TODO: Show Pause Menu
+        }
+
+        public void Unpause()
+        {
+            if (CurrentState != State.Paused)
+                return;
+
+            CurrentState = State.Running;
+            hud.Show();
+
+            // TODO: Hide Pause Menu
+        }
+
         public override void Start()
         {
             GameObject gameObject = new("GameState");
@@ -88,8 +118,11 @@ namespace ArdJam2026.Gameplay
 
         public override void Stop()
         {
-            GameObject.Destroy(component.gameObject);
-            component = null;
+            if (component)
+            {
+                GameObject.Destroy(component.gameObject);
+                component = null;
+            }
         }
     }
 }
