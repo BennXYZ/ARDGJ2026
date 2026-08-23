@@ -196,7 +196,7 @@ namespace ArdJam2026.Gameplay
                 if (currentLevelIndex >= 0 && currentLevelIndex + 1 < GameInstance.Configuration.Levels.Count)
                 {
                     LevelConfig nextLevel = GameInstance.Configuration.Levels[currentLevelIndex + 1];
-                    GameInstance.LoadScene(nextLevel.Scene);
+                    GameInstance.LoadLevel(nextLevel);
                 }
                 else
                 {
