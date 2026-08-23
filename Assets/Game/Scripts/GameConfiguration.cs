@@ -31,9 +31,19 @@ namespace ArdJam2026
         [SerializeField]
         private PauseMenu pauseMenu;
 
+        [SerializeField]
+        private GameOverHud gameLostHud;
+
+        [SerializeField]
+        private GameOverHud gameWonHud;
+
         public PauseMenu PauseMenu => pauseMenu;
 
         public GameplayHud GameplayHud => gameplayHud;
+
+        public GameOverHud GameLostHud => gameLostHud;
+
+        public GameOverHud GameWonHud => gameWonHud;
 
         public EventSystem EventSystem => eventSystem;
 

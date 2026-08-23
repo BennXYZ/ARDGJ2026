@@ -2,6 +2,7 @@ using ArdJam2026.Gameplay.UI;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
 namespace ArdJam2026.Gameplay
 {
@@ -32,6 +33,8 @@ namespace ArdJam2026.Gameplay
 
         private GameplayHud hud;
         private PauseMenu pauseMenu;
+        private GameOverHud gameLostHud;
+        private GameOverHud gameWonHud;
 
         public GameplayGameState(GameInstance gameInstance) : base(gameInstance)
         {
@@ -41,7 +44,7 @@ namespace ArdJam2026.Gameplay
         {
             CurrentCamera = Camera.main;
             Debug.Assert(CurrentCamera, "Cannot find camera.");
-            CurrentRoom = GameObject.FindAnyObjectByType<Room>();
+            CurrentRoom = Object.FindAnyObjectByType<Room>();
             Debug.Assert(CurrentRoom, $"Could not find a room in the scene {CurrentScene?.path}");
             if (!CurrentRoom)
             {
@@ -53,24 +56,30 @@ namespace ArdJam2026.Gameplay
 
             CurrentState = State.Running;
 
-            hud = GameObject.Instantiate<GameplayHud>(GameInstance.Configuration.GameplayHud, new InstantiateParameters() { scene = CurrentScene.Value });
+            hud = Object.Instantiate(GameInstance.Configuration.GameplayHud, new InstantiateParameters() { scene = CurrentScene.Value });
             hud.Initialize(this);
             hud.Show(true);
 
-            pauseMenu = GameObject.Instantiate<PauseMenu>(GameInstance.Configuration.PauseMenu, new InstantiateParameters() { scene = CurrentScene.Value });
+            pauseMenu = Object.Instantiate(GameInstance.Configuration.PauseMenu, new InstantiateParameters() { scene = CurrentScene.Value });
             pauseMenu.Initialize(this);
+
+            gameLostHud = Object.Instantiate(GameInstance.Configuration.GameLostHud, new InstantiateParameters() { scene = CurrentScene.Value });
+            gameLostHud.Initialize(this);
+
+            gameWonHud = Object.Instantiate(GameInstance.Configuration.GameWonHud, new InstantiateParameters() { scene = CurrentScene.Value });
+            gameWonHud.Initialize(this);
         }
 
         protected override void OnSceneUnloaded()
         {
             if (hud)
             {
-                GameObject.Destroy(hud.gameObject);
+                Object.Destroy(hud.gameObject);
                 hud = null;
             }
             if (pauseMenu)
             {
-                GameObject.Destroy(pauseMenu.gameObject);
+                Object.Destroy(pauseMenu.gameObject);
                 pauseMenu = null;
             }
         }
@@ -103,6 +112,14 @@ namespace ArdJam2026.Gameplay
         public void GameOver(GameOverReason reason)
         {
             CurrentState = reason == GameOverReason.Win ? State.GameWon : State.GameOver;
+
+            GameOverHud hudToShow = CurrentState switch
+            {
+                State.GameWon => gameWonHud,
+                _ => gameLostHud
+            };
+            hudToShow.Show();
+
             if (reason == GameOverReason.Death)
             {
                 hud.OnDeath();
@@ -142,25 +159,25 @@ namespace ArdJam2026.Gameplay
             GameObject gameObject = new("GameState");
             component = gameObject.AddComponent<PlayerController>();
             component.Initialize(this);
-            GameObject.DontDestroyOnLoad(gameObject);
+            Object.DontDestroyOnLoad(gameObject);
         }
 
         public override void Stop()
         {
             if (component)
             {
-                GameObject.Destroy(component.gameObject);
+                Object.Destroy(component.gameObject);
                 component = null;
             }
 
             if (hud)
             {
-                GameObject.Destroy(hud.gameObject);
+                Object.Destroy(hud.gameObject);
                 hud = null;
             }
             if (pauseMenu)
             {
-                GameObject.Destroy(pauseMenu.gameObject);
+                Object.Destroy(pauseMenu.gameObject);
                 pauseMenu = null;
             }
         }
@@ -169,6 +186,23 @@ namespace ArdJam2026.Gameplay
         {
             if (CurrentScene.HasValue)
                 GameInstance.LoadScene(CurrentScene.Value);
+        }
+
+        public void NextLevel()
+        {
+            if (CurrentLevel)
+            {
+                int currentLevelIndex = GameInstance.Configuration.Levels.IndexOf(CurrentLevel);
+                if (currentLevelIndex >= 0 && currentLevelIndex + 1 < GameInstance.Configuration.Levels.Count)
+                {
+                    LevelConfig nextLevel = GameInstance.Configuration.Levels[currentLevelIndex + 1];
+                    GameInstance.LoadScene(nextLevel.Scene);
+                }
+                else
+                {
+                    BackToMenu();
+                }
+            }
         }
 
         public void BackToMenu()

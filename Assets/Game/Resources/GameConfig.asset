@@ -19,3 +19,5 @@ MonoBehaviour:
   eventSystem: {fileID: 5651291898822128778, guid: 13eaac5a2549bb048b040d6dbb9c577b, type: 3}
   gameplayHud: {fileID: 8761283548998896846, guid: eadb4e661087f0f429cc87363ea4034a, type: 3}
   pauseMenu: {fileID: 1403340947362508400, guid: 29594274928f067438ba7be6f4b21e21, type: 3}
+  gameLostHud: {fileID: 7723806388368030034, guid: 690628288e17b9f4cb45232ec37f08c7, type: 3}
+  gameWonHud: {fileID: 7709250268057649239, guid: 73d5ea25ce0f9af49b61d0b6e71225e5, type: 3}
