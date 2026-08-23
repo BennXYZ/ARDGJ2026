@@ -125,16 +125,16 @@ namespace ArdJam2026
 
         private void StartGame()
         {
-            EventSystem eventSystem = GameObject.Instantiate(Configuration.EventSystem);
+            EventSystem eventSystem = Object.Instantiate(Configuration.EventSystem);
             Debug.Assert(eventSystem, "Could not create event system");
             eventSystem.name = "EventSystem";
-            GameObject.DontDestroyOnLoad(eventSystem.gameObject);
+            Object.DontDestroyOnLoad(eventSystem.gameObject);
 
             InputSystem.actions.Enable();
 
 #if UNITY_EDITOR
             // Shorthand for the editor, so we automatically start into the game directly
-            if (GameObject.FindAnyObjectByType<Room>())
+            if (Object.FindAnyObjectByType<Room>())
             {
                 // Store, in case we want to restart, so the correct game state is loaded
                 expectedGameStateByScene[SceneManager.GetActiveScene().path] = GameStateType.Gameplay;
@@ -170,7 +170,10 @@ namespace ArdJam2026
 
             GameObject gameInstanceContainer = new("Game Instance");
             GameInstanceHelper helper = gameInstanceContainer.AddComponent<GameInstanceHelper>();
-            GameObject.DontDestroyOnLoad(gameInstanceContainer);
+            Object.DontDestroyOnLoad(gameInstanceContainer);
+
+            AudioSource musicPlayer = Object.Instantiate(configuration.MusicPrefab);
+            Object.DontDestroyOnLoad(musicPlayer);
 
             GameInstance gameInstance = new(configuration, helper);
             gameInstance.StartGame();
@@ -181,7 +184,7 @@ namespace ArdJam2026
             CurrentGameState.Stop();
             SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
             SceneManager.sceneUnloaded -= SceneManager_sceneUnloaded;
-            GameObject.Destroy(helper);
+            Object.Destroy(helper);
         }
     }
 }

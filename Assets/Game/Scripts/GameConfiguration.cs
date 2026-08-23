@@ -37,6 +37,9 @@ namespace ArdJam2026
         [SerializeField]
         private GameOverHud gameWonHud;
 
+        [SerializeField]
+        private AudioSource musicPrefab;
+
         public PauseMenu PauseMenu => pauseMenu;
 
         public GameplayHud GameplayHud => gameplayHud;
@@ -51,5 +54,6 @@ namespace ArdJam2026
         public string MenuScene => menuScene;
 
         public List<LevelConfig> Levels => levels;
+        public AudioSource MusicPrefab => musicPrefab;
     }
 }
