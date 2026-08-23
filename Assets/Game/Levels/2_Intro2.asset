@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce61a44c7a588eb47b4b355e56b4df57, type: 3}
-  m_Name: Test
+  m_Name: 2_Intro2
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.LevelConfig
-  title: Playground
-  scene: Game/Scenes/Playground
+  title: Dual Possession
+  scene: Game/Levels/2_Intro2

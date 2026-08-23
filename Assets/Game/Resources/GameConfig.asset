@@ -16,6 +16,13 @@ MonoBehaviour:
   menuScene: Game/Scenes/MainMenu
   levels:
   - {fileID: 11400000, guid: fdc8c883f78a5c442bb40513a62e296f, type: 2}
+  - {fileID: 11400000, guid: 74d3cae5331bc874bb934a082dd5f298, type: 2}
+  - {fileID: 11400000, guid: 319f8b58385fed247a28ecb995018ff4, type: 2}
+  - {fileID: 11400000, guid: 1cdae7b1273635646b2b1d241227ac1a, type: 2}
+  - {fileID: 11400000, guid: d78873a875408534abcc9e04aaa5cc04, type: 2}
+  - {fileID: 11400000, guid: a814f6af3a501c745827104aa27549ac, type: 2}
+  - {fileID: 11400000, guid: 831631d72f3f35349bbd810908cd18ed, type: 2}
+  - {fileID: 11400000, guid: 99842e905ad7e0149b93701f4e9e7395, type: 2}
   eventSystem: {fileID: 5651291898822128778, guid: 13eaac5a2549bb048b040d6dbb9c577b, type: 3}
   gameplayHud: {fileID: 8761283548998896846, guid: eadb4e661087f0f429cc87363ea4034a, type: 3}
   pauseMenu: {fileID: 1403340947362508400, guid: 29594274928f067438ba7be6f4b21e21, type: 3}

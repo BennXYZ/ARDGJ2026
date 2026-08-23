@@ -14,5 +14,29 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Playground.unity
     guid: ee7bb8843132d1942a58b24cc9bdfba9
+  - enabled: 1
+    path: Assets/Game/Levels/1_Intro1.unity
+    guid: 46a7144e2808909498166f831bad95b3
+  - enabled: 1
+    path: Assets/Game/Levels/2_Intro2.unity
+    guid: 8771d4b97bc18404fb181d2681fb887b
+  - enabled: 1
+    path: Assets/Game/Levels/4_Twisty.unity
+    guid: d98d3bc35f2308a478a82c9b08d2981a
+  - enabled: 1
+    path: Assets/Game/Levels/5_LockedAway.unity
+    guid: 9570196b57666244dad95a5cb344d500
+  - enabled: 1
+    path: Assets/Game/Levels/6_OutOfReach.unity
+    guid: 3dc4e12b5459a7b4abf646a811a19c32
+  - enabled: 1
+    path: Assets/Game/Levels/7_Switch.unity
+    guid: 426e4d82f0c86fc4fa7c0756fb09b78a
+  - enabled: 1
+    path: Assets/Game/Levels/8_DoubleflipSwitch.unity
+    guid: 03e2a462ae1d9c44387df33dc554919e
+  - enabled: 1
+    path: Assets/Game/Levels/3_Cutoff.unity
+    guid: 71cabf0d57bd9af489857c039ebcadc7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
