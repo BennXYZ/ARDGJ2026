@@ -19,6 +19,7 @@ namespace ArdJam2026.Gameplay
         [SerializeField, GetComponent] private MoveAnimation moveAnimation;
         private bool dead;
         private string deathAnimation;
+        private bool isInteracting;
 
         public int Speed => speed;
 
@@ -28,21 +29,19 @@ namespace ArdJam2026.Gameplay
 
         public int MoveCount { get; private set; }
 
-        public bool IsMoving => moveAnimation == null || (moveAnimation.IsMoving);
+        public bool IsMoving => moveAnimation == null || (moveAnimation.IsMoving) || isInteracting;
 
         public void Interact()
         {
             if (animations)
+            {
+                isInteracting = true;
                 animations.PlayAnimation("Interact", 0, () =>
                 {
                     PlayIdleAnimation();
-                    InteractionFinished();
+                    isInteracting = false;
                 });
-        }
-
-        private void InteractionFinished()
-        {
-            //TODO(bz): movement finished, update interactables
+            }
         }
 
         protected override void Initialize()
@@ -123,11 +122,6 @@ namespace ArdJam2026.Gameplay
                 {
                     moveAnimation?.Play();
                 }, 3));
-        }
-
-        private void MovementFinished()
-        {
-            //TODO(bz): movement finished, update interactables
         }
 
         private void PlayIdleAnimation()
