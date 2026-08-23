@@ -32,6 +32,11 @@ namespace ArdJam2026.Gameplay
         public void Initialize(GameplayGameState gameState)
         {
             this.gameState = gameState;
+            {
+                TilemapRenderer renderer = level.GetComponent<TilemapRenderer>();
+                if (renderer)
+                    renderer.enabled = false;
+            }
             RoomObject[] objects = FindObjectsByType<RoomObject>();
 
             pawns.Clear();
