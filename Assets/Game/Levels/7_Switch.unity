@@ -149,6 +149,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.Room
   level: {fileID: 788172458}
+  onMovePawn:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onVictory:
+    m_PersistentCalls:
+      m_Calls: []
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  onPossess:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &219969549
 Transform:
   m_ObjectHideFlags: 0
@@ -2944,6 +2959,75 @@ Transform:
   - {fileID: 1121565460}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1082571496
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2988185822014516220, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_Name
+      value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: data.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: data.Array.data[0].Text
+      value: Scientists next to an object may interact with it.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: data.Array.data[1].Text
+      value: Use the "interact" button (or press E) to force them to do it!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5742
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.48992
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
 --- !u!1 &1121565459
 GameObject:
   m_ObjectHideFlags: 0
@@ -6062,3 +6146,4 @@ SceneRoots:
   - {fileID: 1580775951}
   - {fileID: 895883992}
   - {fileID: 644124250}
+  - {fileID: 1082571496}
