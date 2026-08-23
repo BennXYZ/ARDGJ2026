@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -48,9 +49,14 @@ namespace ArdJam2026.Gameplay.UI
                 sequence.Append(titleContainer.DOFade(1, 0.5f).SetEase(Ease.Linear));
                 sequence.Append(titleText.DOFade(1, 0.5f).SetEase(Ease.Linear));
                 sequence.Append(titleContainer.DOFade(0, 0.5f).SetEase(Ease.Linear).SetDelay(2));
-                sequence.OnComplete(() => titleContainer.blocksRaycasts = false);
+                sequence.OnComplete(OnIntroOver);
                 sequence.Play();
             }
+        }
+
+        private void OnIntroOver()
+        {
+            gameState.LoadingOver();
         }
 
         public void Hide()

@@ -11,7 +11,9 @@ namespace ArdJam2026.Gameplay
         public enum State
         {
             Paused,
+            Loading,
             Running,
+            Tutorial,
             GameOver,
             GameWon
         }
@@ -35,6 +37,7 @@ namespace ArdJam2026.Gameplay
         private PauseMenu pauseMenu;
         private GameOverHud gameLostHud;
         private GameOverHud gameWonHud;
+        private Tutorial tutorial;
 
         public GameplayGameState(GameInstance gameInstance) : base(gameInstance)
         {
@@ -54,7 +57,7 @@ namespace ArdJam2026.Gameplay
 
             CurrentRoom.Initialize(this);
 
-            CurrentState = State.Running;
+            CurrentState = State.Loading;
 
             hud = Object.Instantiate(GameInstance.Configuration.GameplayHud, new InstantiateParameters() { scene = CurrentScene.Value });
             hud.Initialize(this);
@@ -125,7 +128,7 @@ namespace ArdJam2026.Gameplay
                 hud.OnDeath();
                 foreach (Pawn pawn in CurrentRoom.Pawns)
                 {
-                    if(!pawn.IsPossessed)
+                    if (!pawn.IsPossessed)
                         continue;
                     pawn.Die("Death_Ground", true);
                 }
@@ -208,6 +211,34 @@ namespace ArdJam2026.Gameplay
         public void BackToMenu()
         {
             GameInstance.LoadScene(GameInstance.Configuration.MenuScene);
+        }
+
+        public void SetTutorial(Tutorial tutorial)
+        {
+            this.tutorial = tutorial;
+            if (CurrentState == State.Running)
+            {
+                CurrentState = State.Tutorial;
+                tutorial.StartTutorial();
+            }
+        }
+
+        public void EndTutorial()
+        {
+            CurrentState = State.Running;
+        }
+
+        public void LoadingOver()
+        {
+            if (tutorial)
+            {
+                CurrentState = State.Tutorial;
+                tutorial.StartTutorial();
+            }
+            else
+            {
+                CurrentState = State.Running;
+            }
         }
     }
 }

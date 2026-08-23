@@ -35,6 +35,7 @@ namespace ArdJam2026.Gameplay
         [SerializeField] private UnityEvent onPossess;
 
         public IReadOnlyList<Pawn> Pawns => pawns;
+        public GameplayGameState GameState => gameState;
 
         public void Initialize(GameplayGameState gameState)
         {
