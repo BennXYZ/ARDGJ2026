@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12db55d31bf0f5468d84d875a3b76aa, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.GameConfiguration
+  startupScene: Game/Scenes/Cutscene_Workfile
   menuScene: Game/Scenes/MainMenu
   levels:
   - {fileID: 11400000, guid: fdc8c883f78a5c442bb40513a62e296f, type: 2}

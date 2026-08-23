@@ -1,11 +1,8 @@
 ﻿using ArdJam2026.Gameplay;
 using ArdJam2026.MainMenu;
-using SaintsField;
+using ArdJam2026.Startup;
 using SaintsField.Utils;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -76,6 +73,9 @@ namespace ArdJam2026
             gameStates[GameStateType.Bootstrap] = new BootstrapGameState(this);
             gameStates[GameStateType.Menu] = new MenuGameState(this);
             gameStates[GameStateType.Gameplay] = new GameplayGameState(this);
+
+            if (!string.IsNullOrEmpty(configuration.StartupScene))
+                expectedGameStateByScene[configuration.StartupScene] = GameStateType.Bootstrap;
 
             if (!string.IsNullOrEmpty(configuration.MenuScene))
                 expectedGameStateByScene[configuration.MenuScene] = GameStateType.Menu;

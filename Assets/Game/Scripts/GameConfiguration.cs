@@ -12,6 +12,10 @@ namespace ArdJam2026
         [Header("Scenes")]
         [SerializeField]
         [Scene(true)]
+        private string startupScene;
+
+        [SerializeField]
+        [Scene(true)]
         private string menuScene;
 
         [SerializeField]
@@ -33,6 +37,7 @@ namespace ArdJam2026
 
         public EventSystem EventSystem => eventSystem;
 
+        public string StartupScene => startupScene;
         public string MenuScene => menuScene;
 
         public List<LevelConfig> Levels => levels;
