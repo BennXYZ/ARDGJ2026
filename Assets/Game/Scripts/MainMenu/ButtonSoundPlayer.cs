@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ButtonSoundPlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip audioClip;
+    [SerializeField] private AudioMixerGroup mixerGroup;
 
     private AudioSource audioSource;
 
@@ -14,6 +15,7 @@ public class ButtonSoundPlayer : MonoBehaviour
     {
         Button button = GetComponent<Button>();
         audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = mixerGroup;
         audioSource.clip = audioClip;
         audioSource.playOnAwake = false;
         audioSource.Stop();

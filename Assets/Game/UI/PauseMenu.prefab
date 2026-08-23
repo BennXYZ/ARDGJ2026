@@ -1353,3 +1353,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSoundPlayer
   audioClip: {fileID: 8300000, guid: ccf1721f560f50642b5acd622c2788e7, type: 3}
+  mixerGroup: {fileID: 1235781561520097514, guid: fcf602a14167ae949a37e18f061cc6c7, type: 2}
