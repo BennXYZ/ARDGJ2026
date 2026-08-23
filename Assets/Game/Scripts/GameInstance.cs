@@ -1,7 +1,11 @@
 ﻿using ArdJam2026.Gameplay;
+using ArdJam2026.MainMenu;
 using SaintsField;
+using SaintsField.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -52,12 +56,14 @@ namespace ArdJam2026
         private readonly Dictionary<GameStateType, GameStateBase> gameStates = new();
         private readonly Dictionary<string, GameStateType> expectedGameStateByScene = new();
         private GameStateType currentState = GameStateType.Bootstrap;
+        private LevelConfig loadingLevel;
 
         public GameStateBase CurrentGameState => gameStates[currentState];
 
         private readonly GameInstanceHelper helper;
 
         public GameConfiguration Configuration { get; }
+        public LevelConfig CurrentLevel { get; private set; }
 
         public GameInstance(GameConfiguration configuration, GameInstanceHelper helper)
         {
@@ -71,12 +77,12 @@ namespace ArdJam2026
             gameStates[GameStateType.Menu] = new MenuGameState(this);
             gameStates[GameStateType.Gameplay] = new GameplayGameState(this);
 
-            if (!string.IsNullOrEmpty(configuration.MenuScene.path))
-                expectedGameStateByScene[configuration.MenuScene.path] = GameStateType.Menu;
-            foreach (SceneReference sceneReference in configuration.Levels)
+            if (!string.IsNullOrEmpty(configuration.MenuScene))
+                expectedGameStateByScene[configuration.MenuScene] = GameStateType.Menu;
+            foreach (LevelConfig level in configuration.Levels)
             {
-                if (!string.IsNullOrEmpty(sceneReference.path))
-                    expectedGameStateByScene[sceneReference.path] = GameStateType.Gameplay;
+                if (!string.IsNullOrEmpty(level.Scene))
+                    expectedGameStateByScene[level.Scene] = GameStateType.Gameplay;
             }
 
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
@@ -90,7 +96,15 @@ namespace ArdJam2026
 
         private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (!expectedGameStateByScene.TryGetValue(scene.path, out GameStateType expectedGameState))
+            string path = RuntimeUtil.TrimScenePath(scene.path, true);
+
+            CurrentLevel = null;
+            if (loadingLevel && loadingLevel.Scene == path)
+            {
+                CurrentLevel = loadingLevel;
+            }
+
+            if (!expectedGameStateByScene.TryGetValue(path, out GameStateType expectedGameState))
             {
                 Debug.LogError("We loaded an unexpected scene.");
             }
@@ -133,7 +147,7 @@ namespace ArdJam2026
             CurrentGameState.SceneLoaded(SceneManager.GetActiveScene());
         }
 
-        public void LoadScene(SceneReference scene)
+        public void LoadScene(string scene)
         {
             SceneManager.LoadScene(scene);
         }
@@ -141,6 +155,12 @@ namespace ArdJam2026
         public void LoadScene(Scene scene)
         {
             SceneManager.LoadScene(scene.path);
+        }
+
+        public void LoadLevel(LevelConfig level)
+        {
+            loadingLevel = level;
+            SceneManager.LoadScene(level.Scene);
         }
 
         [RuntimeInitializeOnLoadMethod]

@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12db55d31bf0f5468d84d875a3b76aa, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.GameConfiguration
-  menuScene:
-    guid: None (Scene Asset)
-    index: 0
-    path: 
-  levels: []
+  menuScene: Game/Scenes/MainMenu
+  levels:
+  - {fileID: 11400000, guid: fdc8c883f78a5c442bb40513a62e296f, type: 2}
   eventSystem: {fileID: 5651291898822128778, guid: 13eaac5a2549bb048b040d6dbb9c577b, type: 3}
   gameplayHud: {fileID: 8761283548998896846, guid: eadb4e661087f0f429cc87363ea4034a, type: 3}
   pauseMenu: {fileID: 1403340947362508400, guid: 29594274928f067438ba7be6f4b21e21, type: 3}

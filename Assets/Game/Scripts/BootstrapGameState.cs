@@ -1,6 +1,4 @@
-﻿using UnityEngine.SceneManagement;
-
-namespace ArdJam2026
+﻿namespace ArdJam2026
 {
     public class BootstrapGameState : GameStateBase
     {
@@ -10,6 +8,7 @@ namespace ArdJam2026
 
         protected override void OnSceneLoaded()
         {
+            GameInstance.LoadScene(GameInstance.Configuration.MenuScene);
         }
 
         public override void Start()

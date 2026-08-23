@@ -11,10 +11,11 @@ namespace ArdJam2026
     {
         [Header("Scenes")]
         [SerializeField]
-        private SceneReference menuScene;
+        [Scene(true)]
+        private string menuScene;
 
         [SerializeField]
-        private List<SceneReference> levels;
+        private List<LevelConfig> levels;
 
         [Header("Prefabs")]
         [SerializeField]
@@ -32,8 +33,8 @@ namespace ArdJam2026
 
         public EventSystem EventSystem => eventSystem;
 
-        public SceneReference MenuScene => menuScene;
+        public string MenuScene => menuScene;
 
-        public List<SceneReference> Levels => levels;
+        public List<LevelConfig> Levels => levels;
     }
 }

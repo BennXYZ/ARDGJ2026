@@ -1,10 +1,14 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace ArdJam2026.Gameplay.UI
 {
     public class PauseMenu : MonoBehaviour
     {
+        [SerializeField]
+        private TextMeshProUGUI title;
+
         [SerializeField]
         private PossessedIndicator possessedIndicator;
 
@@ -16,6 +20,8 @@ namespace ArdJam2026.Gameplay.UI
         public void Initialize(GameplayGameState gameState)
         {
             this.gameState = gameState;
+
+            title.SetText(gameState.GameInstance.CurrentLevel ? gameState.GameInstance.CurrentLevel.Title : "Nemo");
 
             possessedIndicator.Initialize(gameState);
 
