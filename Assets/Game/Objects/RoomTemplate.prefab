@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5308330330631804833}
   - component: {fileID: 7827498588953747819}
+  - component: {fileID: 43208350966185905}
   m_Layer: 0
   m_Name: DeathSound
   m_TagString: Untagged
@@ -129,6 +130,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &43208350966185905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784219822514838573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e29186520a3ce47878a7ad23716139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MuteSetter
+  muteType: 0
 --- !u!1 &4336457092490849160
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7807754358684049520}
   - component: {fileID: 765485479603666866}
+  - component: {fileID: 6918711660337741555}
   m_Layer: 0
   m_Name: VictorySound
   m_TagString: Untagged
@@ -383,6 +398,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6918711660337741555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525911293396863669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e29186520a3ce47878a7ad23716139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MuteSetter
+  muteType: 0
 --- !u!1 &4955618641963922554
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3449519761717279198}
   - component: {fileID: 6214607628298944484}
+  - component: {fileID: 5238204970867265679}
   m_Layer: 0
   m_Name: PossessSound
   m_TagString: Untagged
@@ -512,6 +541,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5238204970867265679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955618641963922554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e29186520a3ce47878a7ad23716139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MuteSetter
+  muteType: 0
 --- !u!1 &9032925577144809899
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4603345327475562438}
   - component: {fileID: 456989397249563191}
+  - component: {fileID: 7859780458411991115}
   m_Layer: 0
   m_Name: MoveSound
   m_TagString: Untagged
@@ -641,6 +684,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7859780458411991115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9032925577144809899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e29186520a3ce47878a7ad23716139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MuteSetter
+  muteType: 0
 --- !u!1 &9059759689859187110
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4749679709844731940}
   - component: {fileID: 8620063971933187243}
+  - component: {fileID: 6732108141459555031}
   m_Layer: 0
   m_Name: InteractSound
   m_TagString: Untagged
@@ -770,3 +827,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6732108141459555031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9059759689859187110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e29186520a3ce47878a7ad23716139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MuteSetter
+  muteType: 0

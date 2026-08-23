@@ -2,11 +2,10 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button)), DisallowMultipleComponent]
+[RequireComponent(typeof(Button)), RequireComponent(typeof(AudioSource)), DisallowMultipleComponent]
 public class ButtonSoundPlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip audioClip;
-    [SerializeField] private AudioMixerGroup mixerGroup;
 
     private AudioSource audioSource;
 
@@ -14,8 +13,7 @@ public class ButtonSoundPlayer : MonoBehaviour
     void Start()
     {
         Button button = GetComponent<Button>();
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.outputAudioMixerGroup = mixerGroup;
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = audioClip;
         audioSource.playOnAwake = false;
         audioSource.Stop();

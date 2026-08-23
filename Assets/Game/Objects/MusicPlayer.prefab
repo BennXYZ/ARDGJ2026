@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5695628717601664531}
   - component: {fileID: 4628991683239170101}
+  - component: {fileID: 6563908181918107158}
   m_Layer: 0
   m_Name: MusicPlayer
   m_TagString: Untagged
@@ -129,3 +130,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6563908181918107158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590670509990928547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e29186520a3ce47878a7ad23716139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MuteSetter
+  muteType: 1
