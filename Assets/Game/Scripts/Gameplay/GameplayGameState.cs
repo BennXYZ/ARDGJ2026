@@ -1,7 +1,7 @@
 using ArdJam2026.Gameplay.UI;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 namespace ArdJam2026.Gameplay
 {
@@ -28,19 +28,19 @@ namespace ArdJam2026.Gameplay
 
         public State CurrentState { get; private set; } = State.Paused;
 
-        // TODO: Cleanup reference when changing level
         private GameplayHud hud;
+        private PauseMenu pauseMenu;
 
         public GameplayGameState(GameInstance gameInstance) : base(gameInstance)
         {
         }
 
-        public override void SceneLoaded(Scene scene)
+        protected override void OnSceneLoaded()
         {
             CurrentCamera = Camera.main;
             Debug.Assert(CurrentCamera, "Cannot find camera.");
             CurrentRoom = GameObject.FindAnyObjectByType<Room>();
-            Debug.Assert(CurrentRoom, $"Could not find a room in the scene {scene.path}");
+            Debug.Assert(CurrentRoom, $"Could not find a room in the scene {CurrentScene?.path}");
             if (!CurrentRoom)
             {
                 GameInstance.LoadScene(GameInstance.Configuration.MenuScene);
@@ -51,9 +51,26 @@ namespace ArdJam2026.Gameplay
 
             CurrentState = State.Running;
 
-            hud = GameObject.Instantiate<GameplayHud>(GameInstance.Configuration.GameplayHud, new InstantiateParameters() { scene = scene });
+            hud = GameObject.Instantiate<GameplayHud>(GameInstance.Configuration.GameplayHud, new InstantiateParameters() { scene = CurrentScene.Value });
             hud.Initialize(this);
             hud.Show();
+
+            pauseMenu = GameObject.Instantiate<PauseMenu>(GameInstance.Configuration.PauseMenu, new InstantiateParameters() { scene = CurrentScene.Value });
+            pauseMenu.Initialize(this);
+        }
+
+        protected override void OnSceneUnloaded()
+        {
+            if (hud)
+            {
+                GameObject.Destroy(hud.gameObject);
+                hud = null;
+            }
+            if (pauseMenu)
+            {
+                GameObject.Destroy(pauseMenu.gameObject);
+                pauseMenu = null;
+            }
         }
 
         public void DoInteractAction()
@@ -94,7 +111,7 @@ namespace ArdJam2026.Gameplay
             CurrentState = State.Paused;
             hud.Hide();
 
-            // TODO: Show Pause Menu
+            pauseMenu.Show();
         }
 
         public void Unpause()
@@ -105,7 +122,7 @@ namespace ArdJam2026.Gameplay
             CurrentState = State.Running;
             hud.Show();
 
-            // TODO: Hide Pause Menu
+            pauseMenu.Hide();
         }
 
         public override void Start()
@@ -123,6 +140,28 @@ namespace ArdJam2026.Gameplay
                 GameObject.Destroy(component.gameObject);
                 component = null;
             }
+
+            if (hud)
+            {
+                GameObject.Destroy(hud.gameObject);
+                hud = null;
+            }
+            if (pauseMenu)
+            {
+                GameObject.Destroy(pauseMenu.gameObject);
+                pauseMenu = null;
+            }
+        }
+
+        public void Restart()
+        {
+            if (CurrentScene.HasValue)
+                GameInstance.LoadScene(CurrentScene.Value);
+        }
+
+        public void BackToMenu()
+        {
+            GameInstance.LoadScene(GameInstance.Configuration.MenuScene);
         }
     }
 }

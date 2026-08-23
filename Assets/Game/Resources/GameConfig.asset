@@ -18,3 +18,5 @@ MonoBehaviour:
     path: 
   levels: []
   eventSystem: {fileID: 5651291898822128778, guid: 13eaac5a2549bb048b040d6dbb9c577b, type: 3}
+  gameplayHud: {fileID: 8761283548998896846, guid: eadb4e661087f0f429cc87363ea4034a, type: 3}
+  pauseMenu: {fileID: 1403340947362508400, guid: 29594274928f067438ba7be6f4b21e21, type: 3}

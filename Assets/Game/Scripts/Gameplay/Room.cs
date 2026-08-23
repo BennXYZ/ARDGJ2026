@@ -27,6 +27,8 @@ namespace ArdJam2026.Gameplay
         private readonly List<ICollider> colliders = new();
         private readonly List<ITurnHandler> turnHandlers = new();
 
+        public IReadOnlyList<Pawn> Pawns => pawns;
+
         public void Initialize(GameplayGameState gameState)
         {
             this.gameState = gameState;

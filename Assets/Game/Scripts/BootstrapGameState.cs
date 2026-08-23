@@ -8,9 +8,8 @@ namespace ArdJam2026
         {
         }
 
-        public override void SceneLoaded(Scene scene)
+        protected override void OnSceneLoaded()
         {
-
         }
 
         public override void Start()

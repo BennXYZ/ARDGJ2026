@@ -1,5 +1,6 @@
 ﻿using ArdJam2026.Gameplay;
 using SaintsField;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +18,8 @@ namespace ArdJam2026
 
     public abstract class GameStateBase
     {
+        public Scene? CurrentScene { get; protected set; }
+
         public GameInstance GameInstance { get; }
 
         protected GameStateBase(GameInstance instance)
@@ -27,7 +30,21 @@ namespace ArdJam2026
         public abstract void Start();
         public abstract void Stop();
 
-        public abstract void SceneLoaded(Scene scene);
+        public void SceneLoaded(Scene scene)
+        {
+            CurrentScene = scene;
+            OnSceneLoaded();
+        }
+        protected abstract void OnSceneLoaded();
+        public void SceneUnloaded(Scene scene)
+        {
+            if (CurrentScene == scene)
+            {
+                CurrentScene = null;
+                OnSceneUnloaded();
+            }
+        }
+        protected virtual void OnSceneUnloaded() { }
     }
 
     public class GameInstance
@@ -37,10 +54,16 @@ namespace ArdJam2026
         private GameStateType currentState = GameStateType.Bootstrap;
 
         public GameStateBase CurrentGameState => gameStates[currentState];
+
+        private readonly GameInstanceHelper helper;
+
         public GameConfiguration Configuration { get; }
 
-        public GameInstance(GameConfiguration configuration)
+        public GameInstance(GameConfiguration configuration, GameInstanceHelper helper)
         {
+            this.helper = helper;
+            helper.Initialize(this);
+
             Configuration = configuration;
             Debug.Assert(configuration, "Configuration not loaded.");
 
@@ -52,11 +75,17 @@ namespace ArdJam2026
                 expectedGameStateByScene[configuration.MenuScene.path] = GameStateType.Menu;
             foreach (SceneReference sceneReference in configuration.Levels)
             {
-            if (!string.IsNullOrEmpty(sceneReference.path))
-                expectedGameStateByScene[sceneReference.path] = GameStateType.Gameplay;
+                if (!string.IsNullOrEmpty(sceneReference.path))
+                    expectedGameStateByScene[sceneReference.path] = GameStateType.Gameplay;
             }
 
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+            SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
+        }
+
+        private void SceneManager_sceneUnloaded(Scene scene)
+        {
+            CurrentGameState.SceneUnloaded(scene);
         }
 
         private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
@@ -93,6 +122,8 @@ namespace ArdJam2026
             // Shorthand for the editor, so we automatically start into the game directly
             if (GameObject.FindAnyObjectByType<Room>())
             {
+                // Store, in case we want to restart, so the correct game state is loaded
+                expectedGameStateByScene[SceneManager.GetActiveScene().path] = GameStateType.Gameplay;
                 SetGameStateForScene(SceneManager.GetActiveScene(), GameStateType.Gameplay);
                 return;
             }
@@ -107,13 +138,30 @@ namespace ArdJam2026
             SceneManager.LoadScene(scene);
         }
 
+        public void LoadScene(Scene scene)
+        {
+            SceneManager.LoadScene(scene.path);
+        }
+
         [RuntimeInitializeOnLoadMethod]
         private static void Main()
         {
             GameConfiguration configuration = Resources.Load<GameConfiguration>("GameConfig");
 
-            GameInstance gameInstance = new(configuration);
+            GameObject gameInstanceContainer = new("Game Instance");
+            GameInstanceHelper helper = gameInstanceContainer.AddComponent<GameInstanceHelper>();
+            GameObject.DontDestroyOnLoad(gameInstanceContainer);
+
+            GameInstance gameInstance = new(configuration, helper);
             gameInstance.StartGame();
+        }
+
+        public void StopGame()
+        {
+            CurrentGameState.Stop();
+            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+            SceneManager.sceneUnloaded -= SceneManager_sceneUnloaded;
+            GameObject.Destroy(helper);
         }
     }
 }

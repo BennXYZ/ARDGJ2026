@@ -3,11 +3,6 @@ using UnityEngine;
 
 namespace ArdJam2026.Gameplay.UI
 {
-    public class PauseMenu : MonoBehaviour
-    {
-
-    }
-
     public class GameplayHud : MonoBehaviour
     {
         [SerializeField]
