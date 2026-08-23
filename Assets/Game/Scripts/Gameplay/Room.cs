@@ -74,15 +74,13 @@ namespace ArdJam2026.Gameplay
             if (turnStarted)
                 return;
 
-            turnStarted = true;
-
             Vector3Int cell = level.WorldToCell(position);
-            Debug.Log(cell);
             foreach (Pawn pawn in pawns)
             {
                 if (!pawn.IsPossessed && pawn.Location == (Vector2Int)cell)
                 {
                     pawn.Possess();
+                    turnStarted = true;
                     break;
                 }
             }
