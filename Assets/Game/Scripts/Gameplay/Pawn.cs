@@ -18,6 +18,7 @@ namespace ArdJam2026.Gameplay
         [SerializeField, GetComponent] private Animatable animations;
         [SerializeField, GetComponent] private MoveAnimation moveAnimation;
         private bool dead;
+        private string deathAnimation;
 
         public int Speed => speed;
 
@@ -133,7 +134,7 @@ namespace ArdJam2026.Gameplay
         {
             if (dead)
             {
-                animations.PlayAnimation("Death_Vaporize");
+                animations.PlayAnimation(deathAnimation);
             }
             else
             {
@@ -155,8 +156,16 @@ namespace ArdJam2026.Gameplay
             MoveCount = Speed;
         }
 
-        public void Die()
+        public void Die(string deathAnimation, bool playAnimationImmediately = false)
         {
+            if (string.IsNullOrEmpty(this.deathAnimation))
+            {
+                this.deathAnimation = deathAnimation;
+                if (playAnimationImmediately)
+                {
+                    animations.PlayAnimation(deathAnimation);
+                }
+            }
             dead = true;
             //MoveCount = 0;
             //TODO(bz) set MoveCount to 0 breaks speedy pawns and prevents their animation

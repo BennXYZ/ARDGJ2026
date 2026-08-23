@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ArdJam2026.Gameplay.UI
 {
@@ -10,6 +11,9 @@ namespace ArdJam2026.Gameplay.UI
 
         [SerializeField]
         private float transitionDuration = 0.3f;
+
+        [SerializeField]
+        private UnityEvent onDeath;
 
         private GameplayGameState gameState;
 
@@ -39,6 +43,11 @@ namespace ArdJam2026.Gameplay.UI
         public void Interact()
         {
             gameState.DoInteractAction();
+        }
+
+        public void OnDeath()
+        {
+            onDeath.Invoke();
         }
 
         public void MoveDown() => gameState.DoMoveAction(Vector2Int.down);

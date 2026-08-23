@@ -101,6 +101,16 @@ namespace ArdJam2026.Gameplay
         public void GameOver(GameOverReason reason)
         {
             CurrentState = reason == GameOverReason.Win ? State.GameWon : State.GameOver;
+            if (reason == GameOverReason.Death)
+            {
+                hud.OnDeath();
+                foreach (Pawn pawn in CurrentRoom.Pawns)
+                {
+                    if(!pawn.IsPossessed)
+                        continue;
+                    pawn.Die("Death_Ground", true);
+                }
+            }
         }
 
         public void Pause()
