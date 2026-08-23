@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 namespace ArdJam2026.Gameplay
@@ -26,6 +27,12 @@ namespace ArdJam2026.Gameplay
         private readonly List<IFloorButton> floorButtons = new();
         private readonly List<ICollider> colliders = new();
         private readonly List<ITurnHandler> turnHandlers = new();
+
+        [SerializeField] private UnityEvent onMovePawn;
+        [SerializeField] private UnityEvent onDeath;
+        [SerializeField] private UnityEvent onVictory;
+        [SerializeField] private UnityEvent onInteract;
+        [SerializeField] private UnityEvent onPossess;
 
         public IReadOnlyList<Pawn> Pawns => pawns;
 
@@ -86,6 +93,7 @@ namespace ArdJam2026.Gameplay
                 {
                     pawn.Possess();
                     turnStarted = true;
+                    onPossess.Invoke();
                     break;
                 }
             }
@@ -122,6 +130,9 @@ namespace ArdJam2026.Gameplay
                 // Prevents endless loop
                 tries--;
             }
+
+            if (pawns.Any(p => p.IsPossessed))
+                onMovePawn.Invoke();
         }
 
         private void CheckForDeath(Pawn pawn)
@@ -171,14 +182,23 @@ namespace ArdJam2026.Gameplay
                     }
                 }
             }
+
+            if(pawns.Any(p => p.IsPossessed))
+                onInteract.Invoke();
         }
 
         private void OnTurnComplete()
         {
             if (pawnDied)
+            {
                 gameState.GameOver(GameplayGameState.GameOverReason.Death);
+                onDeath.Invoke();
+            }
             else if (goals.TrueForAll(g => g.Reached))
+            {
                 gameState.GameOver(GameplayGameState.GameOverReason.Win);
+                onVictory.Invoke();
+            }
 
             foreach (ITurnHandler turnHandler in turnHandlers)
             {
