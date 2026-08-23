@@ -27,6 +27,8 @@ namespace ArdJam2026.Gameplay
         public Camera CurrentCamera { get; private set; }
 
         public State CurrentState { get; private set; } = State.Paused;
+        public LevelConfig CurrentLevel => GameInstance.CurrentLevel;
+        public string CurrentLevelTitle => CurrentLevel ? CurrentLevel.Title : "Nemo";
 
         private GameplayHud hud;
         private PauseMenu pauseMenu;
@@ -53,7 +55,7 @@ namespace ArdJam2026.Gameplay
 
             hud = GameObject.Instantiate<GameplayHud>(GameInstance.Configuration.GameplayHud, new InstantiateParameters() { scene = CurrentScene.Value });
             hud.Initialize(this);
-            hud.Show();
+            hud.Show(true);
 
             pauseMenu = GameObject.Instantiate<PauseMenu>(GameInstance.Configuration.PauseMenu, new InstantiateParameters() { scene = CurrentScene.Value });
             pauseMenu.Initialize(this);
@@ -130,7 +132,7 @@ namespace ArdJam2026.Gameplay
                 return;
 
             CurrentState = State.Running;
-            hud.Show();
+            hud.Show(false);
 
             pauseMenu.Hide();
         }

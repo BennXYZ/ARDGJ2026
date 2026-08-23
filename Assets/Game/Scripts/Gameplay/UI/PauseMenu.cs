@@ -21,7 +21,7 @@ namespace ArdJam2026.Gameplay.UI
         {
             this.gameState = gameState;
 
-            title.SetText(gameState.GameInstance.CurrentLevel ? gameState.GameInstance.CurrentLevel.Title : "Nemo");
+            title.SetText(gameState.CurrentLevelTitle);
 
             possessedIndicator.Initialize(gameState);
 
