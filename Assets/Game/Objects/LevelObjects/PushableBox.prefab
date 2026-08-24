@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4794251216170598643}
   - component: {fileID: 3441528100652083901}
   - component: {fileID: 4468734076097717247}
-  - component: {fileID: 265323510396595965}
   m_Layer: 0
   m_Name: PushableBox
   m_TagString: Untagged
@@ -194,7 +193,7 @@ AudioSource:
   m_GameObject: {fileID: 6941356298138063364}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1235781561520097514, guid: fcf602a14167ae949a37e18f061cc6c7, type: 2}
+  OutputAudioMixerGroup: {fileID: 8775071991799952323, guid: b1af3e47dce7182409d66e5135305e4a, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a83109ba43ba9144692501577046805a, type: 3}
   m_PlayOnAwake: 1
@@ -282,19 +281,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &265323510396595965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6941356298138063364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e29186520a3ce47878a7ad23716139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MuteSetter
-  muteType: 0
 --- !u!1001 &1019499780152873490
 PrefabInstance:
   m_ObjectHideFlags: 0
