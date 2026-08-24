@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce61a44c7a588eb47b4b355e56b4df57, type: 3}
   m_Name: 10_Deadly2
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.LevelConfig
-  title: Possession
-  scene: Game/Levels/1_Intro1
+  title: More Deadly
+  scene: Game/Levels/10_Deadly2
