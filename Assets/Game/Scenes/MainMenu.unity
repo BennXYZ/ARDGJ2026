@@ -5177,8 +5177,8 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 105, y: 72}
   m_Spacing: {x: 5, y: 6}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Constraint: 1
+  m_ConstraintCount: 4
 --- !u!1 &2095522046
 GameObject:
   m_ObjectHideFlags: 0
