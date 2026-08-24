@@ -5923,11 +5923,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7177160476721694160, guid: 7068529142c895f4da0a3778b214d0a0, type: 3}
       propertyPath: InteractOn.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7177160476721694160, guid: 7068529142c895f4da0a3778b214d0a0, type: 3}
       propertyPath: InteractOff.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7177160476721694160, guid: 7068529142c895f4da0a3778b214d0a0, type: 3}
       propertyPath: On.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2584327944788393738}
   - component: {fileID: 8351146845338068796}
+  - component: {fileID: 6176997885677889521}
   m_Layer: 0
   m_Name: TriggerSwitch
   m_TagString: Untagged
@@ -59,6 +60,34 @@ MonoBehaviour:
       m_Calls: []
   OnInteract:
     m_PersistentCalls:
+      m_Calls: []
+  state: 0
+--- !u!114 &6176997885677889521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326719371539794971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f20e361ff372e44a040b831da222e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.Sfx.SwitchListener
+  On:
+    m_PersistentCalls:
+      m_Calls: []
+  Off:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractOn:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractOff:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInteract:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2784168657966521833}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
@@ -72,7 +101,7 @@ MonoBehaviour:
           m_StringArgument: Trigger
           m_BoolArgument: 0
         m_CallState: 2
-  state: 0
+  switchReference: {fileID: 8351146845338068796}
 --- !u!1001 &3943239554423820321
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1772412112079399796}
   - component: {fileID: 7177160476721694160}
+  - component: {fileID: 7441365537822035989}
   m_Layer: 0
   m_Name: Switch
   m_TagString: Untagged
@@ -53,6 +54,34 @@ MonoBehaviour:
       m_Calls: []
   InteractOn:
     m_PersistentCalls:
+      m_Calls: []
+  InteractOff:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  state: 0
+--- !u!114 &7441365537822035989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911426940729779077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f20e361ff372e44a040b831da222e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.Sfx.SwitchListener
+  On:
+    m_PersistentCalls:
+      m_Calls: []
+  Off:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractOn:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2661592700724082262}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
@@ -81,7 +110,10 @@ MonoBehaviour:
           m_StringArgument: Lever_Deactivate
           m_BoolArgument: 0
         m_CallState: 2
-  state: 0
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  switchReference: {fileID: 7177160476721694160}
 --- !u!1001 &3816107624685058974
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3038632759448794628}
   - component: {fileID: 3629879634096800209}
+  - component: {fileID: 2010575785531646876}
   - component: {fileID: 457485584033559125}
   m_Layer: 0
   m_Name: Button
@@ -46,6 +47,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e5e3c758ae35c49bb5f9a2de99e355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.FloorButton
+  Pressed:
+    m_PersistentCalls:
+      m_Calls: []
+  Released:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2010575785531646876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7209246494139554387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b127d7aa1f147264795dc06c1653cfcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.Sfx.FloorButtonListener
   Pressed:
     m_PersistentCalls:
       m_Calls:
@@ -100,6 +119,7 @@ MonoBehaviour:
           m_StringArgument: Button_Released
           m_BoolArgument: 0
         m_CallState: 2
+  floorButton: {fileID: 3629879634096800209}
 --- !u!82 &457485584033559125
 AudioSource:
   m_ObjectHideFlags: 0
