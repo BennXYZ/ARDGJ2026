@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: DeathTile
+  m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.Tilemaps.AnimatedTile
+  m_AnimatedSprites:
+  - {fileID: -9139242136297639908, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: 9060644216535629531, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: -1420579679535808561, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: 3164722224851119070, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: 5178869105092765150, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: 8271662167936882551, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: -5346888603513154906, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: -174872895896924862, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  m_MinSpeed: 1
+  m_MaxSpeed: 1
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
+  m_TileAnimationFlags: 0
