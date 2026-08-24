@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 788172458}
   - component: {fileID: 788172457}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2595,7 +2595,7 @@ GameObject:
   - component: {fileID: 1121565462}
   - component: {fileID: 1121565461}
   m_Layer: 0
-  m_Name: Tilemap_1
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
