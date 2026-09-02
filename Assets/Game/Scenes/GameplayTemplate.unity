@@ -188,42 +188,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial
       objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[0].Text
-      value: Muhahaha!
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[1].Text
-      value: Finally! I got free!
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[2].Text
-      value: You seem capable!
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[3].Text
-      value: Can you help me build a hive mind?
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[4].Text
-      value: Just click on those pesky little scientists, to possess them.
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[5].Text
-      value: That purple circle you see there is a mind teleporter.
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[6].Text
-      value: Guide the scientist onto it to get them out of the lab.
-      objectReference: {fileID: 0}
-    - target: {fileID: 4282907215506045617, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
-      propertyPath: data.Array.data[7].Text
-      value: Good luck!
-      objectReference: {fileID: 0}
     - target: {fileID: 7498952581698720120, guid: 8b567348ddf77e4488d8defd13b40792, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5742
