@@ -5,6 +5,7 @@ namespace ArdJam2026.Gameplay
 {
     public class Timer : RoomObject, ITurnHandler
     {
+        public UnityEvent TimeSet;
         public UnityEvent TimeUp;
         public UnityEvent<int> TimerChanged;
 
@@ -39,6 +40,7 @@ namespace ArdJam2026.Gameplay
             {
                 this.time = time;
                 TimerChanged.Invoke(this.time);
+                TimeSet.Invoke();
             }
         }
     }
