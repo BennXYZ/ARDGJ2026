@@ -1,13 +1,18 @@
 using ArdJam2026.Gameplay;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameOverHud : MonoBehaviour
 {
     private GameplayGameState gameState;
 
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private Transform buttonParent;
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+    [SerializeField]
+    private Transform buttonParent;
+
+    public UnityEvent<bool> HasNextLevel;
 
     public void Initialize(GameplayGameState gameState)
     {
@@ -15,6 +20,7 @@ public class GameOverHud : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
+        HasNextLevel.Invoke(gameState.HasNextLevel);
     }
 
     public void Show()

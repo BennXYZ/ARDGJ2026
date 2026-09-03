@@ -1,5 +1,4 @@
 using ArdJam2026.Gameplay.UI;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
@@ -32,6 +31,15 @@ namespace ArdJam2026.Gameplay
         public State CurrentState { get; private set; } = State.Paused;
         public LevelConfig CurrentLevel => GameInstance.CurrentLevel;
         public string CurrentLevelTitle => CurrentLevel ? CurrentLevel.Title : "Nemo";
+
+        public bool HasNextLevel
+        {
+            get
+            {
+                int currentLevelIndex = GameInstance.CurrentLevelIndex;
+                return currentLevelIndex >= 0 && currentLevelIndex + 1 < GameInstance.Configuration.Levels.Count;
+            }
+        }
 
         private GameplayHud hud;
         private PauseMenu pauseMenu;
@@ -195,10 +203,9 @@ namespace ArdJam2026.Gameplay
         {
             if (CurrentLevel)
             {
-                int currentLevelIndex = GameInstance.Configuration.Levels.IndexOf(CurrentLevel);
-                if (currentLevelIndex >= 0 && currentLevelIndex + 1 < GameInstance.Configuration.Levels.Count)
+                if (HasNextLevel)
                 {
-                    LevelConfig nextLevel = GameInstance.Configuration.Levels[currentLevelIndex + 1];
+                    LevelConfig nextLevel = GameInstance.Configuration.Levels[GameInstance.CurrentLevelIndex + 1];
                     GameInstance.LoadLevel(nextLevel);
                 }
                 else

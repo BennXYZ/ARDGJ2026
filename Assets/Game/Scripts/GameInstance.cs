@@ -61,6 +61,7 @@ namespace ArdJam2026
 
         public GameConfiguration Configuration { get; }
         public LevelConfig CurrentLevel { get; private set; }
+        public int CurrentLevelIndex { get; private set; } = -1;
 
         public GameInstance(GameConfiguration configuration, GameInstanceHelper helper)
         {
@@ -99,9 +100,11 @@ namespace ArdJam2026
             string path = RuntimeUtil.TrimScenePath(scene.path, true);
 
             CurrentLevel = null;
+            CurrentLevelIndex = -1;
             if (loadingLevel && loadingLevel.Scene == path)
             {
                 CurrentLevel = loadingLevel;
+                CurrentLevelIndex = Configuration.Levels.IndexOf(CurrentLevel);
             }
 
             if (!expectedGameStateByScene.TryGetValue(path, out GameStateType expectedGameState))
