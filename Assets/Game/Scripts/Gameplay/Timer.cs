@@ -19,8 +19,13 @@ namespace ArdJam2026.Gameplay
 
         protected override void Initialize()
         {
-            if (fireOnInitialize && time == 0)
-                TimeUp.Invoke();
+            if (fireOnInitialize)
+            {
+                if (time == 0)
+                    TimeUp.Invoke();
+                else
+                    TimeSet.Invoke();
+            }
         }
 
         public void OnTurn()
