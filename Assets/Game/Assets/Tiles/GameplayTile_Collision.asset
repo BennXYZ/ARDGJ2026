@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameplayTile_Collision
   m_EditorClassIdentifier: Assembly-CSharp::ArdJam2026.Gameplay.GameplayTile
   m_Sprite: {fileID: 277572094, guid: d455bdc160ed1b14ba3fc894d04b455c, type: 3}
-  m_Color: {r: 1, g: 0.48235294, b: 1, a: 0.14901961}
+  m_Color: {r: 0.90098715, g: 0.48235297, b: 1, a: 0.34117648}
   m_Transform:
     e00: 1
     e01: 0

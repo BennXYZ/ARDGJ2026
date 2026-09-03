@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: DeathTileUpper
   m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.Tilemaps.AnimatedTile
   m_AnimatedSprites:
-  - {fileID: -9139242136297639908, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
-  - {fileID: 9060644216535629531, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
-  - {fileID: -1420579679535808561, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
-  - {fileID: 3164722224851119070, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
-  - {fileID: 5178869105092765150, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
-  - {fileID: 8271662167936882551, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
-  - {fileID: -5346888603513154906, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
-  - {fileID: -174872895896924862, guid: c6ec70b0140d740458b026f1f0fc84d9, type: 3}
+  - {fileID: -5903106256034675359, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
+  - {fileID: -859223530637131699, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
+  - {fileID: 255381790609442148, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
+  - {fileID: -2258915135777164970, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
+  - {fileID: 2296535791564249108, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
+  - {fileID: -4841745818314360567, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
+  - {fileID: 8067337628769267407, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
+  - {fileID: -8231146317395485507, guid: 63b5842eabc035f40b5eed3fabb6e0a7, type: 3}
   m_MinSpeed: 1
   m_MaxSpeed: 1
   m_AnimationStartTime: 0
